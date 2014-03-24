@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Not Phy</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2014-03-23T23:40:00+01:00</updated><entry><title>My super title</title><link href="/my-super-post.html" rel="alternate"></link><updated>2014-03-23T23:40:00+01:00</updated><author><name>Sébastien Diemer</name></author><id>tag:,2014-03-23:my-super-post.html</id><summary type="html">&lt;h1&gt;The title of the post&lt;/h1&gt;
+&lt;p&gt;This is the content of my super blog post.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;and&lt;/li&gt;
+&lt;li&gt;some&lt;/li&gt;
+&lt;li&gt;bullets&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;That's it&lt;/h2&gt;
+&lt;p&gt;Thanks!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;some_code&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;I crashed you&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="pelican"></category><category term="publishing"></category></entry></feed>
