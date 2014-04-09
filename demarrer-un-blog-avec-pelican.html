@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sebdiem.github.io</title>
+  <title>Démarrer un blog avec Pelican</title>
   <meta name="author" content="Sébastien Diemer">
 
 
@@ -1764,57 +1764,49 @@ init_mathjax();
 </ul></nav>
   <div id="main">
     <div id="content">
-<div class="blog-index">
-  		<article>
+<div>
+  <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">
-        <a href="/ombres-pas-chinoises.html">Ombres pas chinoises</a>
-      </h1>
-      <p class="meta"><time datetime="2014-04-02T00:00:00" pubdate>Mer 02 avril 2014</time></p>
-</header>
-
-  <div class="entry-content"><p>Dans cet article, je vous présente un bout de code qui calcule les ombres projetées d'obstacles éclairés par une source lumineuse.</p>
-<p>J'utiliserai le fichier suivant, qui contient un ensemble de fonctions utiles pour la géométrie.</p>
-<figure class='code'>
-<figcaption><span>geom_utils.py</span> <a href='/code/geom_utils.py'>download</a></figcaption>
-
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">PathPatch</span>
-<span class="kn">from ...</span></pre></div></figure></div>
-  <footer>
-    <a rel="full-article" href="/ombres-pas-chinoises.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="/animation-matplotlib.html">Animation Matplotlib</a>
-      </h1>
-      <p class="meta"><time datetime="2014-03-31T00:00:00" pubdate>Lun 31 mars 2014</time></p>
-</header>
-
-  <div class="entry-content"><p>Dans cette article, je vais vous montrer comment rendre l'affichage d'une courbe animée plus dynamique avec matplotlib. Plutôt que d'avoir une animation linéaire qui révèle la courbe de façon régulière, nous allons utiliser plusieurs paramétrages (c'est à dire des fonctions qui déforment l'écoulement linéaire du ...</p></div>
-  <footer>
-    <a rel="full-article" href="/animation-matplotlib.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="/demarrer-un-blog-avec-pelican.html">Démarrer un blog avec Pelican</a>
-      </h1>
+      <h1 class="entry-title">Démarrer un blog avec Pelican</h1>
       <p class="meta"><time datetime="2014-03-29T09:27:00" pubdate>Sam 29 mars 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>Cela fait quelque temps maintenant que je voulais lancer un blog et c'est finalement cette <a href="http://timkastelle.org/blog/2014/03/you-should-start-a-blog-right-now/">lecture</a> qui m'a convaincue... et plus particulièrement les points 3: "Blogging helps you turn your flow of idea into a stock of content" et 7: "Blogging helps you build your skills" qui sont ...</p></div>
-  <footer>
-    <a rel="full-article" href="/demarrer-un-blog-avec-pelican.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-<div class="pagination">
+  <div class="entry-content"><p>Cela fait quelque temps maintenant que je voulais lancer un blog et c'est finalement cette <a href="http://timkastelle.org/blog/2014/03/you-should-start-a-blog-right-now/">lecture</a> qui m'a convaincue... et plus particulièrement les points 3: "Blogging helps you turn your flow of idea into a stock of content" et 7: "Blogging helps you build your skills" qui sont pour moi de bonnes motivations.
+J'ai eu l'occasion par le passé d'utiliser Wordpress et je songeais naturellement à m'orienter vers cette plateforme, jusqu'à ce que je lise <a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/">ceci</a> qui m'a fait découvrir <a href="http://blog.getpelican.com">Pelican</a>, un générateur de sites statiques écrit en python.</p>
+<p>La simplicité de mise en oeuvre est assez impressionante:</p>
+<ul>
+<li>pas de base de données: les articles sont écrits dans des fichiers texte dans un langage comme Markdown ou reStructuredText. Cela facilite les sauvegardes, migrations futures et j'en passe...</li>
+<li>pas besoin d'hébergeur, car le contenu statique peut être stocké directement sur des plateformes gratuites comme github</li>
+<li>les fichiers de configuration sont en python</li>
+</ul>
+<p>Par ailleurs, de bons modules additionnels sont disponibles, dont un qui permet d'intégrer directement à un article un notebook ipython. Cela m'intéressait particulièrement car j'ai l'intention de publier ici les expérimentations que je peux faire en python, et les notebooks sont un moyen très pratique de diffusion!</p>
+<p>Si pelican pêche sur un aspect, c'est peut être sur celui des thèmes disponibles. Il ne comprend que deux thèmes de base et je trouve les thèmes développés par la communauté disponibles actuellement pas très attrayants visuellement. Je recherchais pour ce blog un style très épuré, à l'image du thème <a href="https://github.com/lucaslew/whitespace">Whitespace</a> d'Octopress. Je me suis tout d'abord orienté vers <a href="https://github.com/wrl/pelican-mockingbird">pelican-mockingbird</a>, qui propose quelque chose dans le même esprit, mais j'ai finalement opté pour <a href="https://github.com/duilio/pelican-octopress-theme">pelican-octopress-theme</a>. C'est un thème développé de façon très professionnelle, et même si le look de base est loin de ce que je recherchais, j'ai modifié les css à ma sauce pour obtenir le rendu que vous avez sous les yeux (largement inspiré de <a href="https://github.com/lucaslew/whitespace">Whitespace</a>).</p>
+<p>J'ai forké le thème <a href="https://github.com/duilio/pelican-octopress-theme">pelican-octopress-theme</a> et mis en ligne ma propre version que vous pouvez bien sûr utiliser si elle vous plait! Les principales modifications par rapport au thème de base sont:</p>
+<ul>
+<li>suppression de la sidebar</li>
+<li>suppression du menu de navigation qui apparaissait sur les petits écrans. Cela suppose que le menu ne comporte pas trop d'éléments.</li>
+<li>suppression de l'image de fond et remplacement par un fond blanc</li>
+<li>largeur de base plus petite</li>
+<li>utilisation de police sans-serif uniquement</li>
+</ul>
+<p>Dans un second temps, il faudrait que j'allège le css du site... Il est entièrement basé sur celui du thème pelican-octopress-theme, qui, s'il permet une très grande personnalisation, est quand même un peu lourd pour un site minimaliste comme celui-ci!</p>
+<p>Enfin, j'ai ajouté un petit script qui réalise la traduction automatique du thème anglais dans la langue de son choix. Il suffit simplement de remplir un fichier <code>.txt</code> contenant les chaînes de caractères à traduire et le script effectue les remplacements dans les templates.</p>
+<p>Les sources du thème sont disponibles ici: <a href="https://github.com/sebdiem/pelican-octopress-theme">www.github.com</a>.</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Publié par <span class="fn">Sébastien Diemer</span>
+  </span>
+<time datetime="2014-03-29T09:27:00" pubdate>Sam 29 mars 2014</time>  <span class="categories">
+    <a class="category" href="/tag/pelican.html">pelican</a>
+  </span>
+</p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="/demarrer-un-blog-avec-pelican.html" data-via="DiemerSebastien" data-counturl="/demarrer-un-blog-avec-pelican.html" >Tweet</a>
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+</div>    </footer>
+  </article>
 
-  <br />
-</div></div>
+</div>
     </div>
   </div>
   <footer role="contentinfo"><p>

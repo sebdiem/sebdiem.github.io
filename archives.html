@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Not Phy Archive </title>
+  <title>sebdiem.github.io Archive </title>
   <meta name="author" content="Sébastien Diemer">
 
 
@@ -1730,8 +1730,9 @@ init_mathjax();
   <link href="/favicon.png" rel="icon">
   <link href="/theme/css/main.css" media="screen, projection"
         rel="stylesheet" type="text/css">
-  <!-- <script src="/theme/js/modernizr-2.0.js"></script> -->
-  <!-- <script src="/theme/js/ender.js"></script> -->
+  <script src="/theme/js/modernizr-2.0.js"></script>
+  <script src="/theme/js/ender.js"></script>
+  <script src="/theme/js/octopress.js" type="text/javascript"></script>
 
   <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
         rel="stylesheet" type="text/css">
@@ -1741,16 +1742,25 @@ init_mathjax();
 
 <body>
   <header role="banner"><hgroup>
-  <h1><a href="/">Not Phy</a></h1>
+    <h1><a href="/">
+        seb<span>&#x24d3</span>iem
+     </a></h1>
 </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
 </ul>
 
 
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:" />
+    <input class="search" type="text" name="q" results="0" placeholder="Rechercher"/>
+  </fieldset>
+</form>
 
 <ul class="main-navigation">
     <li><a href="http://sebdiem.github.io/">Blog</a></li>
     <li><a href="http://sebdiem.github.io/archives.html">Archives</a></li>
+    <li><a href="http://sebdiem.github.io/pages/a-propos.html">À Propos</a></li>
 </ul></nav>
   <div id="main">
     <div id="content">
@@ -1763,44 +1773,43 @@ init_mathjax();
     	<div id="blog-archives">
             <h2>2014</h2>
                     <article>
-                        <h1><a href="my-super-post-2.html">My re-super title</a></h1>
-                        <time datetime="2014-03-24 08:40:00" pubdate>
-                            <span class="month">Mar</span>
-                            <span class="day">24</span>
+                        <h1><a href="ombres-pas-chinoises.html">Ombres pas chinoises</a></h1>
+                        <time datetime="2014-04-02 00:00:00" pubdate>
+                            <span class="month">Apr</span>
+                            <span class="day">02</span>
                             <span class="year">2014</span>
                         </time>
                         <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='/category/python.html'>Python</a>
+                            <span class="categories">publié dans
+                                <a class='category' href='/category/python-scientifique.html'>Python scientifique</a>
                                 
                             </span>
                         </footer>
                     </article>
                     <article>
-                        <h1><a href="my-super-post.html">My super title</a></h1>
-                        <time datetime="2014-03-23 23:40:00" pubdate>
+                        <h1><a href="animation-matplotlib.html">Animation Matplotlib</a></h1>
+                        <time datetime="2014-03-31 00:00:00" pubdate>
                             <span class="month">Mar</span>
-                            <span class="day">23</span>
+                            <span class="day">31</span>
                             <span class="year">2014</span>
                         </time>
                         <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='/category/python.html'>Python</a>
+                            <span class="categories">publié dans
+                                <a class='category' href='/category/python-scientifique.html'>Python scientifique</a>
                                 
                             </span>
                         </footer>
                     </article>
-            <h2>2013</h2>
                     <article>
-                        <h1><a href="my-super-post-3.html">My other title</a></h1>
-                        <time datetime="2013-03-23 23:40:00" pubdate>
+                        <h1><a href="demarrer-un-blog-avec-pelican.html">Démarrer un blog avec Pelican</a></h1>
+                        <time datetime="2014-03-29 09:27:00" pubdate>
                             <span class="month">Mar</span>
-                            <span class="day">23</span>
-                            <span class="year">2013</span>
+                            <span class="day">29</span>
+                            <span class="year">2014</span>
                         </time>
                         <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='/category/python.html'>Python</a>
+                            <span class="categories">publié dans
+                                <a class='category' href='/category/blogging.html'>Blogging</a>
                                 
                             </span>
                         </footer>
@@ -1812,7 +1821,24 @@ init_mathjax();
   </div>
   <footer role="contentinfo"><p>
   Copyright &copy; 2014 - Sébastien Diemer -
-  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+  <span class="credit">Réalisé avec <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
