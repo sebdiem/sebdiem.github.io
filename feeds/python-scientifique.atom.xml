@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>sebdiem.github.io</title><link href="/" rel="alternate"></link><link href="/feeds/python-scientifique.atom.xml" rel="self"></link><id>/</id><updated>2014-04-02T00:00:00+02:00</updated><entry><title>Ombres pas chinoises</title><link href="/ombres-pas-chinoises.html" rel="alternate"></link><updated>2014-04-02T00:00:00+02:00</updated><author><name>Sébastien Diemer</name></author><id>tag:,2014-04-02:ombres-pas-chinoises.html</id><summary type="html">&lt;p&gt;Dans cet article, je vous présente un bout de code qui calcule les ombres projetées d'obstacles éclairés par une source lumineuse.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>sebdiem.github.io</title><link href="http://sebdiem.github.io/" rel="alternate"></link><link href="http://sebdiem.github.io/feeds/python-scientifique.atom.xml" rel="self"></link><id>http://sebdiem.github.io/</id><updated>2014-04-02T00:00:00+02:00</updated><entry><title>Ombres pas chinoises</title><link href="http://sebdiem.github.io/ombres-pas-chinoises.html" rel="alternate"></link><updated>2014-04-02T00:00:00+02:00</updated><author><name>Sébastien Diemer</name></author><id>tag:sebdiem.github.io,2014-04-02:ombres-pas-chinoises.html</id><summary type="html">&lt;p&gt;Dans cet article, je vous présente un bout de code qui calcule les ombres projetées d'obstacles éclairés par une source lumineuse.&lt;/p&gt;
 &lt;p&gt;J'utiliserai le fichier suivant, qui contient un ensemble de fonctions utiles pour la géométrie.&lt;/p&gt;
 &lt;figure class='code'&gt;
 &lt;figcaption&gt;&lt;span&gt;geom_utils.py&lt;/span&gt; &lt;a href='/code/geom_utils.py'&gt;download&lt;/a&gt;&lt;/figcaption&gt;
@@ -1721,7 +1721,7 @@ AAAAJal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjU0LjYzLjEwNA==
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;/div&gt;&lt;/p&gt;</summary><category term="matplotlib"></category></entry><entry><title>Animation Matplotlib</title><link href="/animation-matplotlib.html" rel="alternate"></link><updated>2014-03-31T00:00:00+02:00</updated><author><name>Sébastien Diemer</name></author><id>tag:,2014-03-31:animation-matplotlib.html</id><summary type="html">&lt;p&gt;Dans cette article, je vais vous montrer comment rendre l'affichage d'une courbe animée plus dynamique avec matplotlib. Plutôt que d'avoir une animation linéaire qui révèle la courbe de façon régulière, nous allons utiliser plusieurs paramétrages (c'est à dire des fonctions qui déforment l'écoulement linéaire du temps) qui vont permettre un affichage plus dynamique.&lt;/p&gt;
+&lt;/div&gt;&lt;/p&gt;</summary><category term="matplotlib"></category></entry><entry><title>Animation Matplotlib</title><link href="http://sebdiem.github.io/animation-matplotlib.html" rel="alternate"></link><updated>2014-03-31T00:00:00+02:00</updated><author><name>Sébastien Diemer</name></author><id>tag:sebdiem.github.io,2014-03-31:animation-matplotlib.html</id><summary type="html">&lt;p&gt;Dans cette article, je vais vous montrer comment rendre l'affichage d'une courbe animée plus dynamique avec matplotlib. Plutôt que d'avoir une animation linéaire qui révèle la courbe de façon régulière, nous allons utiliser plusieurs paramétrages (c'est à dire des fonctions qui déforment l'écoulement linéaire du temps) qui vont permettre un affichage plus dynamique.&lt;/p&gt;
 &lt;p&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="le-vif-du-sujet"&gt;Le vif du sujet:&lt;/h4&gt;
@@ -3923,5 +3923,5 @@ qXRvbwAAAB1kYXRhAAAAAQAAAABMYXZmNTQuNjMuMTA0
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="et-après"&gt;Et après?&lt;/h4&gt;
 &lt;p&gt;On peut utiliser cette technique pour animer tout type de courbes. Je l'utilise par exemple pour animer des trajectoires planifiées pour un robot. Plein d'autres applications sont imaginables et on peut également rajouter d'autres paramétrages. N'hésitez pas à m'en proposer si vous avez des idées!&lt;/p&gt;
-&lt;p&gt;Pour votre plus grand plaisir, le notebook est disponible sur GitHub &lt;a href=""&gt;ici&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Pour votre plus grand plaisir, le notebook est disponible sur GitHub &lt;a href="https://github.com/sebdiem/userpage/tree/master/content/notebooks/animation.ipynb"&gt;ici&lt;/a&gt;!&lt;/p&gt;
 &lt;/div&gt;&lt;/p&gt;</summary><category term="matplotlib"></category></entry></feed>
