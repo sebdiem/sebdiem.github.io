@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sebdiem.github.io - Tags</title>
+  <title>Écrire du latex avec vim: ma config</title>
   <meta name="author" content="Sébastien Diemer">
 
 
@@ -1723,11 +1723,46 @@ init_mathjax();
 </ul></nav>
   <div id="main">
     <div id="content">
-    <h1>Tags for sebdiem.github.io</h1>        <li><a href="http://sebdiem.github.io/tag/latex.html">latex</a> (2)</li>
-        <li><a href="http://sebdiem.github.io/tag/makefile.html">makefile</a> (1)</li>
-        <li><a href="http://sebdiem.github.io/tag/matplotlib.html">matplotlib</a> (2)</li>
-        <li><a href="http://sebdiem.github.io/tag/pelican.html">pelican</a> (1)</li>
-        <li><a href="http://sebdiem.github.io/tag/vim.html">vim</a> (2)</li>
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Écrire du latex avec vim: ma config</h1>
+      <p class="meta"><time datetime="2014-05-01T09:27:00" pubdate>Jeu 01 mai 2014</time></p>
+</header>
+
+  <div class="entry-content"><p>Écrire du latex peut rapidement devenir un cauchemar lorsqu'on utilise un éditeur qui n'offre pas les raccourcis ad-hoc.
+Par défaut <code>vim</code> n'offre pas beaucoup de raccourcis utiles pour éditer facilement du latex, mais il existe un plugin qui répond parfaitement à ce besoin.
+<code>vim-latex</code> porte bien son nom et propose une tonne de raccourcis et foncionnalité pour combiner <code>vim</code> et <code>latex</code>. Voici ceux que j'utilise le plus:  </p>
+<ul>
+<li>En tapant un mot clé puis <code>&lt;F5&gt;</code> en mode édition, <code>vim-latex</code> construit automatiquement l'environnement associé avec la possibilité de "sauter" d'un champ éditable de l'environnement à l'autre avec <code>&lt;ctrl&gt; + j</code>.</li>
+<li>En tapant <code>\cite{</code> puis <code>&lt;F9&gt;</code> le fichier de bibliographie est ouvert afin de faciliter les citations.</li>
+<li>Les sections, sous-sections, équations... peuvent être manuellement répliés pour faciliter la navigation dans les longs fichiers.  </li>
+</ul>
+<p>Malgré ces fonctionnalités, l'affichage de base de vim se prête plus à l'écriture de code que de texte formaté.
+Si on n'utilise qu'une seule fenêtre, les lignes deviennent rapidement gigantesques sur les écrans actuels (même sur un portable).
+Une solution peut être de travailler systématiquement avec deux fenêtres ouvertes mais non seulement la fenêtre de travail n'est plus centrée, mais la seconde fenêtre attire le regard et perturbe l'écriture.
+J'ai donc opté pour un de ces "distraction-free" plugins très à la mode en ce moment, et j'avoue que pour le moment j'apprécie pas mal.
+Dans un premier temps j'ai essayé <a href="https://github.com/junegunn/goyo.vim">goyo</a> mais j'ai trouvé qu'il marchait assez mal avec la fonction citation de <code>vim-latex</code>.
+Je suis donc passé à <a href="https://github.com/mikewest/vimroom">vimroom</a> qui me satisfait pour l'instant.
+Il y a toujours un problème avec la fonction citation lorsque le plugin est activé.
+Je contourne le problème en activant/désactivant le plugin à la volée lorsque je souhaite insérer une citation (une simple pression sur <code>&lt;F6&gt;</code> suffit après avoir défini le raccourci dans le <code>.vimrc</code>).<br />
+Malgré tout, ce n'est toujours pas une partie de plaisir de déchiffrer des équations un peu compliquées, mais cela fluidifie au moins un peu la lecture. 
+En tout cas voilà ce qui fonctionne aujourd'hui pour moi au quotidien!</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Publié par <span class="fn">Sébastien Diemer</span>
+  </span>
+<time datetime="2014-05-01T09:27:00" pubdate>Jeu 01 mai 2014</time>  <span class="categories">
+    <a class="category" href="http://sebdiem.github.io/tag/vim.html">vim</a>
+    <a class="category" href="http://sebdiem.github.io/tag/latex.html">latex</a>
+  </span>
+</p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sebdiem.github.io/ecrire-du-latex-avec-vim-ma-config.html" data-via="DiemerSebastien" data-counturl="http://sebdiem.github.io/ecrire-du-latex-avec-vim-ma-config.html" >Tweet</a>
+</div>    </footer>
+  </article>
+
+</div>
     </div>
   </div>
   <footer role="contentinfo"><p>
