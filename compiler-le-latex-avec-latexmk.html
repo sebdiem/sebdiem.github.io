@@ -1749,7 +1749,7 @@ Mon <code>.latexmkrc</code> est très simple:  </p>
 L'option <code>-output-directory</code> de <code>latexmk</code> est très utile: elle permet de spécifier un dossier dans lequel tous les fichiers de compilation seront créés. 
 Cela permet de "cacher" les fichier <code>.aux</code>, <code>.log</code> et compagnie... dans un dossier caché du répertoire de travail (chez moi <code>.latexfiles</code>).</p>
 <h2>Automatisation</h2>
-<p>Pour automatiser complètement le processus de création du pdf, j'ai un script <code>bash</code> qui réalise les opérations suivantes:  </p>
+<p>Pour automatiser complètement le processus de création du pdf, j'ai un script <code>bash</code> que je nomme <code>compile</code> et qui réalise les opérations suivantes:  </p>
 <ul>
 <li>Générer toutes les figures du document: j'ai un <code>Makefile</code> à la racine du dossier <code>/figures</code> qui prend les fichiers python du répertoire (un fichier par figure) <code>/figures/code</code> et génère un fichier <code>pdf</code> dans <code>/figures/pdf</code>.</li>
 <li>Générer le pdf avec <code>latexmk</code>.</li>
@@ -1757,6 +1757,7 @@ Cela permet de "cacher" les fichier <code>.aux</code>, <code>.log</code> et comp
 </ul>
 <p>Au final j'ai donc une structure de dossier qui ressemble à ceci:</p>
 <div class="highlight"><pre><span class="n">projet</span><span class="o">:</span>
+    <span class="n">compile</span>
     <span class="n">main</span><span class="o">.</span><span class="na">tex</span>
     <span class="n">include_1</span><span class="o">.</span><span class="na">tex</span>
     <span class="o">...</span>
@@ -1779,6 +1780,7 @@ Cela permet de "cacher" les fichier <code>.aux</code>, <code>.log</code> et comp
 </pre></div>
 
 
+<p>Après avoir changé le code d'une figure ou bien rajouté du texte à mon document latex, je peux mettre à jour le <code>pdf</code> d'une simple commande: <code>./compile</code>.</p>
 <p>Bien sûr j'utilise également <code>git</code> pour gérer les scripts d'automatisation ainsi que les sources <code>.tex</code> et <code>.py</code> en configuration.
 Cette astuce me permet de garder des répertoires propres, en cachant tous les fichiers temporaires générés par latex, qui rendent le dossier de travail illisible!</p></div>
     <footer>
