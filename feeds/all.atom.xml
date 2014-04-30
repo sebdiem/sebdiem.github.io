@@ -3944,4 +3944,4 @@ J'ai eu l'occasion par le passé d'utiliser Wordpress et je songeais naturelleme
 &lt;/ul&gt;
 &lt;p&gt;Dans un second temps, il faudrait que j'allège le css du site... Il est entièrement basé sur celui du thème pelican-octopress-theme, qui, s'il permet une très grande personnalisation, est quand même un peu lourd pour un site minimaliste comme celui-ci!&lt;/p&gt;
 &lt;p&gt;Enfin, j'ai ajouté un petit script qui réalise la traduction automatique du thème anglais dans la langue de son choix. Il suffit simplement de remplir un fichier &lt;code&gt;.txt&lt;/code&gt; contenant les chaînes de caractères à traduire et le script effectue les remplacements dans les templates.&lt;/p&gt;
-&lt;p&gt;Les sources du thème sont disponibles ici: &lt;a href="https://github.com/sebdiem/pelican-octopress-theme"&gt;www.github.com&lt;/a&gt;.&lt;/p&gt;</summary><category term="pelican"></category></entry></feed>
+&lt;p&gt;Les sources du thème sont disponibles &lt;a href="https://github.com/sebdiem/pelican-octopress-theme"&gt;ici&lt;/a&gt;.&lt;/p&gt;</summary><category term="pelican"></category></entry></feed>

@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sebdiem.github.io - Articles by Sébastien Diemer</title>
+  <title>Compiler avec latexmk</title>
   <meta name="author" content="Sébastien Diemer">
 
 
@@ -1764,73 +1764,56 @@ init_mathjax();
 </ul></nav>
   <div id="main">
     <div id="content">
-<div class="blog-index">
-  		<article>
+<div>
+  <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">
-        <a href="http://sebdiem.github.io/compiler-avec-latexmk.html">Compiler avec latexmk</a>
-      </h1>
+      <h1 class="entry-title">Compiler avec latexmk</h1>
       <p class="meta"><time datetime="2014-04-30T20:26:00" pubdate>Mer 30 avril 2014</time></p>
 </header>
 
   <div class="entry-content"><h2>latexmk</h2>
 <p>Pour compiler facilement un document latex, <a href="http://users.phys.psu.edu/~collins/software/latexmk-jcc/"><code>latexmk</code></a> est l'utilitaire indispensable.
 Il permet de produire un pdf sans avoir à lancer manuellement cinq fois la commande <code>pdflatex</code> ou <code>biber</code> pour intégrer la bibliographie.
-Son utilisation est très simple: on commence par créer un fichier de configuration <code>.latexmkrc</code> et on ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://sebdiem.github.io/compiler-avec-latexmk.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="http://sebdiem.github.io/ombres-pas-chinoises.html">Ombres pas chinoises</a>
-      </h1>
-      <p class="meta"><time datetime="2014-04-02T00:00:00" pubdate>Mer 02 avril 2014</time></p>
-</header>
+Son utilisation est très simple: on commence par créer un fichier de configuration <code>.latexmkrc</code> et on n'a plus qu'à lancer la commande: </p>
+<div class="highlight"><pre><span class="n">latexmk</span> <span class="n">main</span><span class="p">.</span><span class="n">tex</span>  
+</pre></div>
 
-  <div class="entry-content"><p>Dans cet article, je vous présente un bout de code qui calcule les ombres projetées d'obstacles éclairés par une source lumineuse.</p>
-<p>J'utiliserai le fichier suivant, qui contient un ensemble de fonctions utiles pour la géométrie.</p>
-<figure class='code'>
-<figcaption><span>geom_utils.py</span> <a href='/code/geom_utils.py'>download</a></figcaption>
 
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">PathPatch</span>
-<span class="kn">from ...</span></pre></div></figure></div>
-  <footer>
-    <a rel="full-article" href="http://sebdiem.github.io/ombres-pas-chinoises.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="http://sebdiem.github.io/animation-matplotlib.html">Animation Matplotlib</a>
-      </h1>
-      <p class="meta"><time datetime="2014-03-31T00:00:00" pubdate>Lun 31 mars 2014</time></p>
-</header>
+<p>pour dérouler toutes les étapes de compilation en un seul coup!
+Mon <code>.latexmkrc</code> est très simple:  </p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">pdfmode</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">pdflatex</span> <span class="o">=</span> <span class="s">&quot;pdflatex&quot;</span><span class="p">;</span>
+</pre></div>
 
-  <div class="entry-content"><p>Dans cette article, je vais vous montrer comment rendre l'affichage d'une courbe animée plus dynamique avec matplotlib. Plutôt que d'avoir une animation linéaire qui révèle la courbe de façon régulière, nous allons utiliser plusieurs paramétrages (c'est à dire des fonctions qui déforment l'écoulement linéaire du ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://sebdiem.github.io/animation-matplotlib.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="http://sebdiem.github.io/demarrer-un-blog-avec-pelican.html">Démarrer un blog avec Pelican</a>
-      </h1>
-      <p class="meta"><time datetime="2014-03-29T09:27:00" pubdate>Sam 29 mars 2014</time></p>
-</header>
 
-  <div class="entry-content"><p>Cela fait quelque temps maintenant que je voulais lancer un blog et c'est finalement cette <a href="http://timkastelle.org/blog/2014/03/you-should-start-a-blog-right-now/">lecture</a> qui m'a convaincue... et plus particulièrement les points 3: "Blogging helps you turn your flow of idea into a stock of content" et 7: "Blogging helps you build your skills" qui sont ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://sebdiem.github.io/demarrer-un-blog-avec-pelican.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-<div class="pagination">
+<p>Il indique simplement à <code>latexmk</code> de produire un fichier au format <code>pdf</code> en utilisant <code>pdflatex</code>.
+L'option <code>-output-directory</code> de <code>latexmk</code> est très utile: elle permet de spécifier un dossier dans lequel tous les fichiers de compilation seront créés. 
+Cela permet de "cacher" les fichier <code>.aux</code>, <code>.log</code> et compagnie... dans un dossier caché du répertoire de travail (chez moi <code>.latexfiles</code>).</p>
+<h2>Automatisation</h2>
+<p>Pour automatiser complètement le processus de création du pdf, j'ai un script <code>bash</code> qui réalise les opérations suivantes:  </p>
+<ul>
+<li>Générer toutes les figures du document: j'ai un <code>Makefile</code> à la racine du dossier <code>/figures</code> qui prend les fichiers python du répertoire (un fichier par figure) <code>/figures/code</code> et génère un fichier <code>pdf</code> dans <code>/figures/pdf</code>.</li>
+<li>Générer le pdf avec <code>latexmk</code>.</li>
+<li>Copier le fichier <code>pdf</code>, qui est généré par <code>latexmk</code> dans le dossier caché <code>.latexfiles</code>, à la racine du répertoire de travail.  </li>
+</ul>
+<p>Bien sûr j'utilise également <code>git</code> pour gérer les scripts d'automatisation ainsi que les sources <code>.tex</code> et <code>.py</code> en configuration.
+Avec tout ça j'ai des répertoires propres, sans fichiers qui s'entassent et rendent mon dossier de travail illisible!</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Publié par <span class="fn">Sébastien Diemer</span>
+  </span>
+<time datetime="2014-04-30T20:26:00" pubdate>Mer 30 avril 2014</time>  <span class="categories">
+    <a class="category" href="http://sebdiem.github.io/tag/vim.html">vim</a>
+    <a class="category" href="http://sebdiem.github.io/tag/latex.html">latex</a>
+    <a class="category" href="http://sebdiem.github.io/tag/makefile.html">makefile</a>
+  </span>
+</p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sebdiem.github.io/compiler-avec-latexmk.html" data-via="DiemerSebastien" data-counturl="http://sebdiem.github.io/compiler-avec-latexmk.html" >Tweet</a>
+</div>    </footer>
+  </article>
 
-  <br />
-</div></div>
+</div>
     </div>
   </div>
   <footer role="contentinfo"><p>
