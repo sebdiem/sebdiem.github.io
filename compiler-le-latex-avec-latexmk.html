@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sebdiem.github.io - latex</title>
+  <title>Compiler le latex avec latexmk</title>
   <meta name="author" content="Sébastien Diemer">
 
 
@@ -1723,27 +1723,80 @@ init_mathjax();
 </ul></nav>
   <div id="main">
     <div id="content">
-<div class="blog-index">
-  		<article>
+<div>
+  <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">
-        <a href="http://sebdiem.github.io/compiler-le-latex-avec-latexmk.html">Compiler le latex avec latexmk</a>
-      </h1>
+      <h1 class="entry-title">Compiler le latex avec latexmk</h1>
       <p class="meta"><time datetime="2014-04-30T20:26:00" pubdate>Mer 30 avril 2014</time></p>
 </header>
 
   <div class="entry-content"><h2>latexmk</h2>
 <p>Pour compiler facilement un document latex, <a href="http://users.phys.psu.edu/~collins/software/latexmk-jcc/"><code>latexmk</code></a> est l'utilitaire indispensable.
 Il permet de produire un pdf sans avoir à lancer manuellement cinq fois la commande <code>pdflatex</code> ou <code>biber</code> pour intégrer la bibliographie.
-Son utilisation est très simple: on commence par créer un fichier de configuration <code>.latexmkrc</code> et on ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://sebdiem.github.io/compiler-le-latex-avec-latexmk.html">Lire &crarr;</a>
-  </footer>
-  		</article>
-<div class="pagination">
+Son utilisation est très simple: on commence par créer un fichier de configuration <code>.latexmkrc</code> et on n'a plus qu'à lancer la commande: </p>
+<div class="highlight"><pre><span class="n">latexmk</span> <span class="n">main</span><span class="p">.</span><span class="n">tex</span>  
+</pre></div>
 
-  <br />
-</div></div>
+
+<p>pour dérouler toutes les étapes de compilation en un seul coup!<br />
+Mon <code>.latexmkrc</code> est très simple:  </p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">pdfmode</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+<span class="err">$</span><span class="n">pdflatex</span> <span class="o">=</span> <span class="s">&quot;pdflatex&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Il indique simplement à <code>latexmk</code> de produire un fichier au format <code>pdf</code> en utilisant <code>pdflatex</code>.
+L'option <code>-output-directory</code> de <code>latexmk</code> est très utile: elle permet de spécifier un dossier dans lequel tous les fichiers de compilation seront créés. 
+Cela permet de "cacher" les fichier <code>.aux</code>, <code>.log</code> et compagnie... dans un dossier caché du répertoire de travail (chez moi <code>.latexfiles</code>).</p>
+<h2>Automatisation</h2>
+<p>Pour automatiser complètement le processus de création du pdf, j'ai un script <code>bash</code> qui réalise les opérations suivantes:  </p>
+<ul>
+<li>Générer toutes les figures du document: j'ai un <code>Makefile</code> à la racine du dossier <code>/figures</code> qui prend les fichiers python du répertoire (un fichier par figure) <code>/figures/code</code> et génère un fichier <code>pdf</code> dans <code>/figures/pdf</code>.</li>
+<li>Générer le pdf avec <code>latexmk</code>.</li>
+<li>Copier le fichier <code>pdf</code>, qui est généré par <code>latexmk</code> dans le dossier caché <code>.latexfiles</code>, à la racine du répertoire de travail.  </li>
+</ul>
+<p>Au final j'ai donc une structure de dossier qui ressemble à ceci:</p>
+<div class="highlight"><pre><span class="n">projet</span><span class="o">:</span>
+    <span class="n">main</span><span class="o">.</span><span class="na">tex</span>
+    <span class="n">include_1</span><span class="o">.</span><span class="na">tex</span>
+    <span class="o">...</span>
+    <span class="n">include_n</span><span class="o">.</span><span class="na">tex</span>
+
+    <span class="n">figures</span><span class="o">:</span>
+        <span class="n">Makefile</span>
+        <span class="n">code</span><span class="o">:</span>
+            <span class="n">figure1</span><span class="o">.</span><span class="na">py</span>
+            <span class="o">...</span>
+        <span class="n">pdf</span><span class="o">:</span>
+            <span class="n">figure1</span><span class="o">.</span><span class="na">pdf</span>
+            <span class="o">...</span>
+
+    <span class="o">.</span><span class="na">latexfiles</span><span class="o">:</span>
+        <span class="n">main</span><span class="o">.</span><span class="na">log</span>
+        <span class="n">main</span><span class="o">.</span><span class="na">aux</span>
+        <span class="o">...</span>
+        <span class="o">...</span>
+</pre></div>
+
+
+<p>Bien sûr j'utilise également <code>git</code> pour gérer les scripts d'automatisation ainsi que les sources <code>.tex</code> et <code>.py</code> en configuration.
+Cette astuce me permet de garder des répertoires propres, en cachant tous les fichiers temporaires générés par latex, qui rendent le dossier de travail illisible!</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Publié par <span class="fn">Sébastien Diemer</span>
+  </span>
+<time datetime="2014-04-30T20:26:00" pubdate>Mer 30 avril 2014</time>  <span class="categories">
+    <a class="category" href="http://sebdiem.github.io/tag/vim.html">vim</a>
+    <a class="category" href="http://sebdiem.github.io/tag/latex.html">latex</a>
+    <a class="category" href="http://sebdiem.github.io/tag/makefile.html">makefile</a>
+  </span>
+</p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sebdiem.github.io/compiler-le-latex-avec-latexmk.html" data-via="DiemerSebastien" data-counturl="http://sebdiem.github.io/compiler-le-latex-avec-latexmk.html" >Tweet</a>
+</div>    </footer>
+  </article>
+
+</div>
     </div>
   </div>
   <footer role="contentinfo"><p>
