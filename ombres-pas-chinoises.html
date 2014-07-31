@@ -1278,6 +1278,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1341,6 +1342,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1363,15 +1366,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1406,7 +1409,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1527,7 +1530,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1798,24 +1801,24 @@ init_mathjax();
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="le-vif-du-sujet">Le vif du sujet:</h4>
-<h5 id="principe-général">Principe général:</h5>
-<p>Nous allons décomposer l'environnement en trois ensembles:</p>
+<h4 id="le-vif-du-sujet-">Le vif du sujet:</h4>
+<h5 id="principe-g-n-ral-">Principe général:</h5>
+<p>Nous allons décomposer l&#39;environnement en trois ensembles:</p>
 <ul>
 <li>Le premier est un rectangle représentant les limites de notre &quot;monde&quot;,</li>
 <li>le deuxième, un ensemble de polygones représentant des objets solides bloquant la lumière,</li>
 <li>le troisième, est le faisceau lumineux.</li>
 </ul>
 <p>Pour réaliser une image contenant le faisceau lumineux et les ombres portées des objets nous allons procéder en suivant les étapes suivantes:</p>
-<ol style="list-style-type: decimal">
-<li>On commence par remplir le &quot;monde&quot; d'une couleur sombre,</li>
-<li>On colorie ensuite en clair la partie éclairée par le faisceau (en supposant qu'il n'y a pour l'instant aucun objet),</li>
+<ol>
+<li>On commence par remplir le &quot;monde&quot; d&#39;une couleur sombre,</li>
+<li>On colorie ensuite en clair la partie éclairée par le faisceau (en supposant qu&#39;il n&#39;y a pour l&#39;instant aucun objet),</li>
 <li>On calcule les ombres portées de tous les objets présents éclairés par le faisceau précédent et on les colorie en couleur sombre,</li>
 <li>On ajoute enfin les objets par dessus.</li>
 </ol>
-<h5 id="hypothèses">Hypothèses:</h5>
-<p>On va supposer que le faisceau lumineux a une étendue d'au plus 180° et que les objets placés dans l'environnement n'ont pas des formes &quot;trop tordues&quot; (notion que l'on précisera plus tard :) ).</p>
-<h4 id="le-code-détaillé">Le code détaillé:</h4>
+<h5 id="hypoth-ses-">Hypothèses:</h5>
+<p>On va supposer que le faisceau lumineux a une étendue d&#39;au plus 180° et que les objets placés dans l&#39;environnement n&#39;ont pas des formes &quot;trop tordues&quot; (notion que l&#39;on précisera plus tard :) ).</p>
+<h4 id="le-code-d-taill-">Le code détaillé:</h4>
 <h5 id="librairies">Librairies</h5>
 <p>Le code utilise les librairies <code>numpy</code> et <code>matplotlib</code> ainsi que le fichier <code>geom_utils.py</code> défini plus haut et contenant des fonctions utiles pour la géométrie.</p>
 </div>
@@ -1847,13 +1850,13 @@ In&nbsp;[1]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="les-classes-ray-et-beam">Les classes <code>Ray</code> et <code>Beam</code>:</h5>
-<p>On commence par définir une classe <code>Ray</code> représentant un rayon lumineux issu d'une source et s'arrêtant en un point limite. Ce rayon est caractérisé par un l'angle qu'il fait avec:</p>
+<h5 id="les-classes-ray-et-beam-">Les classes <code>Ray</code> et <code>Beam</code>:</h5>
+<p>On commence par définir une classe <code>Ray</code> représentant un rayon lumineux issu d&#39;une source et s&#39;arrêtant en un point limite. Ce rayon est caractérisé par un l&#39;angle qu&#39;il fait avec:</p>
 <ul>
-<li>un vecteur origine <code>u</code> représentant l'origine des angles (typiquement le vecteur coupant le faisceau lumineux en deux faisceaux de même taille),</li>
-<li>l'axe des <code>x</code> si aucun vecteur origine <code>u</code> n'est précisé.</li>
+<li>un vecteur origine <code>u</code> représentant l&#39;origine des angles (typiquement le vecteur coupant le faisceau lumineux en deux faisceaux de même taille),</li>
+<li>l&#39;axe des <code>x</code> si aucun vecteur origine <code>u</code> n&#39;est précisé.</li>
 </ul>
-<p>Dans la suite, on comparera deux rayons lumineux en considérant qu'un rayon <code>r</code> est supérieur à un rayon <code>s</code> si l'angle de <code>r</code> est plus grand que celui de <code>s</code>.</p>
+<p>Dans la suite, on comparera deux rayons lumineux en considérant qu&#39;un rayon <code>r</code> est supérieur à un rayon <code>s</code> si l&#39;angle de <code>r</code> est plus grand que celui de <code>s</code>.</p>
 </div>
 </div>
 </div>
@@ -1902,7 +1905,7 @@ In&nbsp;[2]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ensuite on définit une classe <code>Beam</code> qui est représente les limites d'un faisceau lumineux. Elle est caractérisée par une source de lumière et des vecteurs limites aux extrémités du faisceau:</p>
+<p>Ensuite on définit une classe <code>Beam</code> qui est représente les limites d&#39;un faisceau lumineux. Elle est caractérisée par une source de lumière et des vecteurs limites aux extrémités du faisceau:</p>
 </div>
 </div>
 </div>
@@ -1949,7 +1952,7 @@ In&nbsp;[3]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h5 id="etape-1-faire-la-nuit-sur-le-monde-virtuel">Etape 1: Faire la nuit sur le monde virtuel</h5>
-<p>Remplir le monde d'une couleur sombre ne pose pas de difficulté particulière. On commence par définir le rectangle constituant notre monde virtuel et on créé l'objet <code>matplotlib</code> associé en précisant l'argument <code>facecolor=black</code>.</p>
+<p>Remplir le monde d&#39;une couleur sombre ne pose pas de difficulté particulière. On commence par définir le rectangle constituant notre monde virtuel et on créé l&#39;objet <code>matplotlib</code> associé en précisant l&#39;argument <code>facecolor=black</code>.</p>
 </div>
 </div>
 </div>
@@ -1976,10 +1979,10 @@ In&nbsp;[4]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h5 id="etape-2-coloriage-du-faisceau">Etape 2: Coloriage du faisceau</h5>
-<p>Pour colorier le faisceau, il faut déterminer le polygone formé par le faisceau et les bords du monde virtuel (le faisceau ne peut pas déborder au delà des limites du monde). On utilise pour cela la fonction <code>world_beam_intersection</code> et <code>world_intersection</code>. Cette fonction utilise la fonction <code>lines_intersection</code> de <code>geom_utils.py</code> pour trouver l'intersection entre deux droites données chacune par un point et un vecteur directeur.</p>
+<p>Pour colorier le faisceau, il faut déterminer le polygone formé par le faisceau et les bords du monde virtuel (le faisceau ne peut pas déborder au delà des limites du monde). On utilise pour cela la fonction <code>world_beam_intersection</code> et <code>world_intersection</code>. Cette fonction utilise la fonction <code>lines_intersection</code> de <code>geom_utils.py</code> pour trouver l&#39;intersection entre deux droites données chacune par un point et un vecteur directeur.</p>
 <p>Le principe est le suivant:</p>
 <ul>
-<li>Soit le faisceau lumineux n'éclaire qu'un seul côté des limites du monde virtuel (<code>vertex_1 == vertex_2</code>), et dans ce cas le polygone recherché est le triangle formé par les deux rayons limites du faisceau et un bout du côté du monde virtuel.</li>
+<li>Soit le faisceau lumineux n&#39;éclaire qu&#39;un seul côté des limites du monde virtuel (<code>vertex_1 == vertex_2</code>), et dans ce cas le polygone recherché est le triangle formé par les deux rayons limites du faisceau et un bout du côté du monde virtuel.</li>
 <li>Soit le faisceau lumineux éclaire deux côtés distincts et dans ce cas il faut rajouter dans les sommets du polygone, les sommets du monde virtuel éclairés par le faisceau.</li>
 </ul>
 </div>
@@ -2050,14 +2053,15 @@ In&nbsp;[5]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="etape-3a-calcul-des-ombres-portées">Etape 3a: Calcul des ombres portées</h5>
-<p><code>shade_of_obstacles</code> est la fonction la plus grosse de notre programme. Elle cherche à déterminer un polygone représentant l'ombre portée d'un obstacle éclairé par un faisceau. On procède de la façon suivante:</p>
+<h5 id="etape-3a-calcul-des-ombres-port-es">Etape 3a: Calcul des ombres portées</h5>
+<p><code>shade_of_obstacles</code> est la fonction la plus grosse de notre programme. Elle cherche à déterminer un polygone représentant l&#39;ombre portée d&#39;un obstacle éclairé par un faisceau.
+On procède de la façon suivante:</p>
 <ul>
-<li>On place l'origine des angles au milieu du faisceau</li>
-<li>On considère tous les rayons qui passent pas les extrémités de l'obstacle</li>
-<li>Si l'obstacle est à l'extérieur du faisceau on retourne `None``</li>
-<li>Sinon on retourne le polygone formé par les sommets extremaux du polygone et l'intersection de l'ombre portée avec le monde virtuel</li>
-<li>Si les sommets extremaux ne sont pas à l'intérieur du faisceau il faut les remplacer par la projection du faisceau sur l'obstacle.</li>
+<li>On place l&#39;origine des angles au milieu du faisceau</li>
+<li>On considère tous les rayons qui passent pas les extrémités de l&#39;obstacle</li>
+<li>Si l&#39;obstacle est à l&#39;extérieur du faisceau on retourne `None``</li>
+<li>Sinon on retourne le polygone formé par les sommets extremaux du polygone et l&#39;intersection de l&#39;ombre portée avec le monde virtuel</li>
+<li>Si les sommets extremaux ne sont pas à l&#39;intérieur du faisceau il faut les remplacer par la projection du faisceau sur l&#39;obstacle.</li>
 </ul>
 </div>
 </div>
@@ -2130,7 +2134,7 @@ In&nbsp;[6]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h5 id="etape-3b-coloriage-des-ombres">Etape 3b: Coloriage des ombres</h5>
-<p>Enfin on construit les <code>patch</code> associés à ces ombres... Pour cela on définit les objets (ou obstacles) présents dans l'environnement.</p>
+<p>Enfin on construit les <code>patch</code> associés à ces ombres... Pour cela on définit les objets (ou obstacles) présents dans l&#39;environnement.</p>
 </div>
 </div>
 </div>
@@ -2166,7 +2170,7 @@ In&nbsp;[7]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h5 id="etape-4-coloriage-des-obstacles">Etape 4: Coloriage des obstacles</h5>
-<p>Finalement, on créé les <code>patch</code> associés aux objets de l'environnement:</p>
+<p>Finalement, on créé les <code>patch</code> associés aux objets de l&#39;environnement:</p>
 </div>
 </div>
 </div>
@@ -2191,8 +2195,8 @@ In&nbsp;[8]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="résultat">Résultat:</h4>
-<p>Voyons ce que ça donne lorsqu'on affiche ça grâce à <code>matplotlib</code>...</p>
+<h4 id="r-sultat-">Résultat:</h4>
+<p>Voyons ce que ça donne lorsqu&#39;on affiche ça grâce à <code>matplotlib</code>...</p>
 </div>
 </div>
 </div>
@@ -2339,7 +2343,8 @@ Acv2VjSC1FZ2AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Pour faire quelque chose de plus joli, on peut réaliser une animation qui fait tourner le faisceau lumineux... On utilise le module défini <a href="http://jakevdp.github.io/blog/2013/05/12/embedding-matplotlib-animations/">ici</a> qui permet d'embarquer directement une animation dans un notebook ipython.</p>
+<p>Pour faire quelque chose de plus joli, on peut réaliser une animation qui fait tourner le faisceau lumineux...
+On utilise le module défini <a href="http://jakevdp.github.io/blog/2013/05/12/embedding-matplotlib-animations/">ici</a> qui permet d&#39;embarquer directement une animation dans un notebook ipython.</p>
 </div>
 </div>
 </div>
