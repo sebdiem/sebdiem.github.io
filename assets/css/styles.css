@@ -279,8 +279,11 @@ p {
   list-style:none;
 }
 .lang {
-  margin: -1.7em 0 0.5em 0;
-  float: right;
+  position: absolute;
+  margin: 1em;
+}
+.lang a {
+  color: white;
 }
 
 @media(max-width:767px) {
