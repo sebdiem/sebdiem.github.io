@@ -280,6 +280,7 @@ p {
 }
 .lang {
   position: absolute;
+  right: 0;
   margin: 1em;
 }
 .lang a {
