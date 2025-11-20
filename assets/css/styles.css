@@ -11,15 +11,32 @@
 
 }
 @media print {
+  body {
+    padding:10px;
+    background:#fff;
+  }
   .hide-print {
-    display: none;
+    display:none;
+  }
+  .wrapper {
+    box-shadow:none;
+  }
+  .sidebar-wrapper {
+    width:260px;
+  }
+  .main-wrapper {
+    padding:35px;
+    padding-right:300px;
+  }
+  .main-wrapper .section {
+    margin-bottom:35px;
   }
 }
 body {
   font-family:roboto,sans-serif;
   color:#545e6c;
   font-size:14px;
-  padding:30px;
+  padding:20px;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale
 }
@@ -80,6 +97,12 @@ p {
   margin-top:0;
   margin-bottom:0
 }
+.sidebar-wrapper .location {
+  color:rgba(255,255,255,.8);
+  font-size:13px;
+  margin-top:8px;
+  margin-bottom:0;
+}
 .sidebar-wrapper .profile {
   margin-bottom:15px
 }
@@ -105,7 +128,7 @@ p {
   font-size:14px
 }
 .sidebar-wrapper .container-block {
-  padding:30px
+  padding:24px
 }
 .sidebar-wrapper .container-block-title {
   text-transform:uppercase;
@@ -160,8 +183,8 @@ p {
 }
 .main-wrapper {
   background:#fff;
-  padding:60px;
-  padding-right:340px
+  padding:45px;
+  padding-right:320px
 }
 .main-wrapper .section-title {
   text-transform:uppercase;
@@ -193,7 +216,7 @@ p {
   top:-2px
 }
 .main-wrapper .section {
-  margin-bottom:60px
+  margin-bottom:45px
 }
 .main-wrapper .experiences-section .item,.main-wrapper .educations-section .item {
   margin-bottom:30px
@@ -245,22 +268,37 @@ p {
 .main-wrapper .publications-section .item {
   margin-bottom:15px
 }
-.skillset .item {
-  display: inline-block;
-  margin-bottom:10px;
-  margin-right: 5px;
+.skillset {
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.skill-category h3 {
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:#3b854b;
+  margin-bottom:8px;
+}
+.skill-tags {
+  list-style:none;
+  padding-left:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.skill-tags li {
   background-color:#5eb572;
-  padding:0.6em;
+  padding:0.4em 0.8em;
   color:#fff;
   border-radius:16px;
+  font-size:13px;
 }
-.skillset .item-mgmt {
-  background-color:#1d2aa1;
+.skill-category.leadership .skill-tags li {
+  background-color:#2f5c3f;
 }
-.skillset .level-title {
-  font-size:14px;
-  margin-top:0;
-  margin-bottom:0
+.skill-category.product .skill-tags li {
+  background-color:#3b854b;
 }
 .circle {
   background-color: #3b854b;
@@ -276,6 +314,16 @@ p {
 }
 .summary {
   font-size: 16px;
+}
+.impact-list {
+  margin-bottom:15px;
+  padding-left:20px;
+}
+.impact-list li {
+  margin-bottom:8px;
+}
+.stack {
+  margin-top:5px;
 }
 .list-unstyled {
   padding-left:0;
