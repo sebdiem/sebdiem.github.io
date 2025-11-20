@@ -254,6 +254,9 @@ p {
   color:#fff;
   border-radius:16px;
 }
+.skillset .item-mgmt {
+  background-color:#1d2aa1;
+}
 .skillset .level-title {
   font-size:14px;
   margin-top:0;
