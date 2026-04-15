@@ -1,347 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Sébastien Diemer</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sébastien Diemer's public page">
-  <link rel="shortcut icon" href="assets/img/favicon.ico">
-  <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
-  <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic&display=swap' type="text/css">
-  <link rel="stylesheet" href="assets/css/fontello.css" type="text/css">
+<meta charset="UTF-8">
+<title>Sébastien Diemer – Staff Software Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --sidebar: #0f1b28;
+  --sidebar2: #1c2e42;
+  --accent:       #c2410c;  /* used on light main bg */
+  --accent-light: #e05a12;  /* used on dark sidebar bg — passes AA */
+  --blue:    #7ab3d9;
+  --ink:     #1a1a1a;
+  --mid:     #333;
+  --light:   #5a5a5a;
+  --rule:    #ddd8d0;
+  --bg:      #faf9f7;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #7a7570;
+  display: flex; justify-content: center;
+  padding: 44px 0 64px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm; height: 297mm;
+  display: flex; overflow: hidden;
+  background: var(--bg);
+  box-shadow: 0 28px 80px rgba(0,0,0,.38), 0 4px 16px rgba(0,0,0,.15);
+}
+
+/* ── SIDEBAR ──────────────────────────────────────── */
+.sb {
+  width: 75mm; flex-shrink: 0;
+  background: var(--sidebar);
+  padding: 26px 22px 20px 22px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+.sb-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px; font-weight: 700;
+  color: #fff; line-height: 1.12;
+  letter-spacing: -.5px;
+  margin-bottom: 6px;
+}
+
+.sb-name em { font-style: normal; color: var(--accent); }
+
+.sb-name::after {
+  content: '';
+  display: block;
+  width: 32px; height: 2.5px;
+  background: var(--accent);
+  margin-top: 8px;
+}
+
+.sb-role {
+  font-size: 9.5px; font-weight: 500;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 14px;
+}
+
+.sb-contacts {
+  display: flex; flex-direction: column; gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--sidebar2);
+  margin-bottom: 14px;
+}
+
+.sb-contact {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 9.5px; color: #c8dce8; text-decoration: none;
+}
+.sb-contact svg { width: 11px; height: 11px; color: var(--accent); flex-shrink: 0; }
+
+/* sidebar section */
+.sb-sec { margin-bottom: 18px; }
+.sb-sec:last-child { margin-bottom: 0; flex: 1; }
+
+.sb-sec-title {
+  font-size: 8px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--accent-light);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--sidebar2);
+  margin-bottom: 11px;
+}
+
+/* skills */
+.sk { margin-bottom: 10px; }
+.sk:last-child { margin-bottom: 0; }
+
+.sk-cat {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: #a0bdd0; margin-bottom: 2px;
+}
+
+.sk-val { font-size: 10px; color: #c8dce8; line-height: 1.7; font-weight: 400; }
+
+/* education */
+.edu { margin-bottom: 11px; }
+.edu:last-child { margin-bottom: 0; }
+.edu-school { font-size: 10px; font-weight: 600; color: #dce8f2; line-height: 1.3; }
+.edu-detail { font-size: 9.5px; color: #b8cfe0; line-height: 1.5; margin-top: 1px; font-style: italic; }
+
+/* languages */
+.lang {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 7px; padding-bottom: 7px;
+  border-bottom: 1px solid var(--sidebar2);
+}
+.lang:last-child { border-bottom: none; margin-bottom: 0; }
+.lang-name { font-size: 10px; color: #c8dce8; font-weight: 500; }
+.lang-lvl  { font-size: 9px; color: #a0bdd0; font-style: italic; }
+
+/* publications */
+.pub {
+  font-size: 8.5px; line-height: 1.6;
+  margin-bottom: 9px; font-weight: 400;
+  display: flex; align-items: baseline; gap: 5px;
+}
+.pub:last-child { margin-bottom: 0; }
+.pub::before { content:'›'; flex-shrink:0; color:var(--accent-light); font-size:10px; font-weight:700; }
+.pub a { color: #b8cfe0; text-decoration: none; }
+.pub a:hover { text-decoration: underline; color: var(--blue); }
+
+/* ── MAIN ─────────────────────────────────────────── */
+.main {
+  flex: 1; min-width: 0;
+  padding: 26px 24px 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+/* summary */
+.summary {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13px; font-style: italic;
+  color: var(--mid); line-height: 1.7;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.summary strong { font-style: normal; font-weight: 600; color: var(--ink); }
+
+/* section title */
+.sec-title {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--ink);
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 11px; flex-shrink: 0;
+}
+
+/* experience */
+.exp-list { display: flex; flex-direction: column; flex: 1; }
+
+.exp {
+  padding-bottom: 13px;
+  margin-bottom: 13px;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.exp:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.exp-top {
+  display: flex; justify-content: space-between;
+  align-items: baseline; gap: 8px; margin-bottom: 1px;
+}
+
+.exp-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--ink); letter-spacing: -.2px; line-height: 1.2;
+}
+
+.exp-period { font-size: 10px; color: var(--light); white-space: nowrap; font-style: italic; }
+
+.exp-co {
+  font-size: 10px; font-weight: 600; font-style: italic;
+  color: var(--accent); margin-bottom: 5px;
+}
+.exp-co .loc { font-weight: 300; color: var(--light); }
+
+.bullets { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+
+.bullets li {
+  font-size: 10px; color: var(--mid);
+  line-height: 1.65; font-weight: 300;
+  padding-left: 14px; position: relative;
+}
+.bullets li::before {
+  content: '–'; position: absolute; left: 0;
+  color: var(--accent); font-weight: 500;
+}
+.bullets li strong { color: var(--ink); font-weight: 500; font-style: normal; }
+
+@media print {
+  @page { margin: 0; size: A4; }
+  body { background: white; padding: 0; margin: 0; }
+  .page { box-shadow: none; }
+}
+</style>
 </head>
-
 <body>
-  <div class="wrapper">
-    <div class="sidebar-wrapper">
-      <div class="hide-print lang">
-        <a href="/">fr</a>
-        |
-        <a href="/en/">en</a>
-      </div>
-      <div class="profile-container">
-        <img class="profile-img" src="assets/img/me.jpg" width="100px" height="100px" alt="profile picture">
+<div class="page">
 
-        <h1 class="name">Sébastien Diemer</h1>
+<aside class="sb">
+  <div class="sb-name">Sébastien<br><em>Diemer</em></div>
+  <div class="sb-role">Staff Software Engineer</div>
 
-        <h3 class="tagline">Engineering manager </br>Développeur senior</h3>
-      </div>
+  <div class="sb-contacts">
+    <a id="my-email" class="sb-contact" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </a>
+    <a class="sb-contact" href="https://linkedin.com/in/sdiemer">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/sdiemer
+    </a>
+    <a class="sb-contact" href="https://sebdiem.github.io">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      sebdiem.github.io
+    </a>
+    <a class="sb-contact" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Paris, France
+    </a>
+  </div>
 
-      <div class="contact-container container-block">
-        <ul class="list-unstyled contact-list">
-          <li class="email"><i class="icon-mail-alt"></i><a target="_blank" id="my-email">sebastien.diemer (gmail)</a></li>
-
-          <li class="email"><i class="icon-phone"></i><a id="my-phone">0123456789</a></li>
-
-          <li class="website"><i class="icon-globe"></i><a href="http://sebdiem.github.io">sebdiem.github.io</a></li>
-
-          <li class="linkedin"><i class="icon-linkedin"></i><a href="https://linkedin.com/in/sdiemer">sdiemer</a></li>
-
-          <li class="github"><i class="icon-github-squared"></i><a href="http://github.com/sebdiem">sebdiem</a></li>
-
-          <li class="twitter"><i class="icon-twitter"></i><a href="https://twitter.com/@DiemerSebastien">@DiemerSebastien</a></li>
-        </ul>
-      </div>
-
-      <div class="education-container container-block">
-        <h2 class="container-block-title">Formation</h2>
-
-        <div class="item">
-          <h4 class="degree">Ingénieur en maths appliquées</h4>
-
-          <h5 class="meta">École des Mines, Paris</h5>
-
-          <div class="time">
-            2006 - 2009
-          </div>
-        </div>
-
-        <div class="item">
-          <h4 class="degree">Prépa MPSI/MP*</h4>
-
-          <h5 class="meta">Lycée Hoche, Versailles</h5>
-
-          <div class="time">
-            2004 - 2006
-          </div>
-        </div>
-      </div>
-
-      <div class="languages-container container-block">
-        <h2 class="container-block-title">Langues</h2>
-
-        <ul class="list-unstyled interests-list">
-          <li>Anglais <span class="lang-desc">(Professionnel)</span></li>
-
-          <li>Espagnol <span class="lang-desc">(Basique)</span></li>
-        </ul>
-      </div>
-
-      <div class="interests-container container-block">
-        <h2 class="container-block-title">Centres d'intérêts</h2>
-
-        <ul class="list-unstyled interests-list">
-          <li>Piano</li>
-
-          <li>Course à pied</li>
-
-          <li>Tennis</li>
-        </ul>
-      </div>
+  <div class="sb-sec">
+    <div class="sb-sec-title">Skills</div>
+    <div class="sk">
+      <div class="sk-cat">Languages &amp; Frameworks</div>
+      <div class="sk-val">Python · TypeScript · JavaScript · SQL · Scala<br>Django · FastAPI · Airflow · PySpark</div>
     </div>
-
-    <div class="main-wrapper">
-      <div class="section summary-section">
-        <h2 class="section-title">
-          <i class="circle icon-comment"></i>
-          En quelques mots
-        </h2>
-
-        <div class="summary">
-          <p>
-            J'aime concevoir des produits web et data intuitifs et qui
-            rendent service à leurs utilisateurs.
-
-            Passionné par le code, j'ai aussi quelques années d'expérience dans
-            le management et l'organisation d'équipes techniques, rigoureuses
-            autonomes et impliquées.
-
-          </p>
-
-          <p>
-            Si vous souhaitez travailler avec moi n'hésitez pas à me contacter
-            par mail ou via linkedin !
-
-          </p>
-        </div>
-      </div>
-
-      <div class="section experiences-section">
-        <h2 class="section-title">
-          <i class="circle icon-briefcase"></i>
-          Expériences
-        </h2>
-
-        <div class="item">
-          <div class="meta">
-            <div class="upper-row">
-              <h3 class="job-title">CTO</h3>
-
-              <div class="time">
-                2019 - Aujourd'hui
-              </div>
-            </div>
-
-            <div class="company">
-              Mytraffic, Paris
-            </div>
-          </div>
-
-          <div class="details">
-            <p>
-
-            CTO de <a href="https://www.mytraffic.io">mytraffic</a> une startup qui
-            fournit des données de fréquentation sur les emplacements en Europe.
-
-            J'ai recruté une équipe de 30 data scientists et ingénieurs logiciel
-            pour créer le produit de zéro.
-            Mon rôle consiste à suivre les développements, faire les arbitrages 
-            techniques et animer l'équipe (feedback, formation, organisation),
-            tout en continuant à contribuer au code, principalement sur la partie infrastructure et data engineering.</br>
-
-            </br>
-
-            Technos : Spark, AWS, PostgreSQL, Django, React
-
-            </p>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="meta">
-            <div class="upper-row">
-              <h3 class="job-title">Lead Developer</h3>
-
-              <div class="time">
-                2015 - 2019
-              </div>
-            </div>
-
-            <div class="company">
-              Polyconseil, Paris
-            </div>
-          </div>
-
-          <div class="details">
-            <p>
-
-            Lead developer sur des projets liés à l'auto-partage électrique
-            (Autolib'). Mon travail quotidien consiste à spécifier, chiffrer et
-            suivre les développements logiciels, à réaliser les fonctionnalités
-            et les tests automatisés, et à participer à l'amélioration continue
-            de la plateforme.</br>
-
-            </br>
-
-            Problématiques : architecture logicielle, déploiement continu, disponibilité, efficacité opérationnelle.
-
-            </p>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="meta">
-            <div class="upper-row">
-              <h3 class="job-title">Ingénieur - chercheur</h3>
-
-              <div class="time">
-                2014 - 2015
-              </div>
-            </div>
-
-            <div class="company">
-              École des Mines, Paris
-            </div>
-          </div>
-
-          <div class="details">
-            <p>
-            
-            Travaux de recherche sur des algorithmes de coordination de
-            véhicules sans conducteur garantissant la sûreté des passagers,
-            tout en minimisant les temps de trajet.</br>
-            Encadrement de travaux pratiques d'informatique.</br>
-
-            </br>
-
-            Problématiques : optimisation, estimation, contrôle, robotique mobile.
-            
-            </p>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="meta">
-            <div class="upper-row">
-              <h3 class="job-title">Ingénieur conception</h3>
-
-              <div class="time">
-                2010 - 2014
-              </div>
-            </div>
-
-            <div class="company">
-              Areva, La Défense
-            </div>
-          </div>
-
-          <div class="details">
-            <p>
-
-            Conception du système de sûreté du réacteur EPR. C'est un système
-            informatisé qui déclenche des actions automatiques au sein de la
-            centrale lorsqu'il détecte des paramètres physiques en dehors de
-            leur plage de fonctionnement normal.</br>
-
-            </br>
-
-            Problématiques : spécifications et conception logicielles, sûreté, disponibilité, redondance.
-
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="section projects-section">
-        <h2 class="section-title">
-          <i class="circle icon-puzzle"></i>
-          Projets
-        </h2>
-
-        <div class="intro">
-          <p>
-          
-          Voici quelques projets open source sur lesquels j'ai contribué :
-          
-          </p>
-        </div>
-
-        <div class="item">
-          <span class="project-title"><a href="http://xlsx-streaming.readthedocs.io/en/latest/">XLSX streaming</a></span> - <span class="project-tagline">Une bibliothèque python qui permet de générer à la volée un fichier Excel de plusieurs milliers de lignes par petits bouts.</span>
-        </div>
-
-        <div class="item">
-          <span class="project-title"><a href="https://github.com/Polyconseil/bluepicker">Bluepicker</a></span> - <span class="project-tagline">Un composant de choix de date / heure en pur javascript.</span>
-        </div>
-
-        <div class="item">
-          <span class="project-title"><a href="https://github.com/sebdiem/metro">Metro</a></span> - <span class="project-tagline">Une démonstration d'interface affichant les horaires des prochains métros.</span>
-        </div>
-
-      </div>
-
-      <div class="skills-section section">
-        <h2 class="section-title">
-          <i class="circle icon-rocket"></i>
-          Expertise
-        </h2>
-
-        <div class="skillset">
-          <div class="item">
-            <h3 class="level-title">Python &amp; Django</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Javascript &amp; VueJS</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">PostgreSQL</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Docker</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">RabbitMQ</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Spark</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">AWS</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Architecture logicielle</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Gestion de projets logiciels</h3>
-          </div>
-
-          <div class="item">
-            <h3 class="level-title">Management</h3>
-          </div>
-        </div>
-      </div>
+    <div class="sk">
+      <div class="sk-cat">Architecture</div>
+      <div class="sk-val">Distributed Systems · Data Pipelines
+        <br>API Design · Microservices · Cloud · Security
+        <br>Production ML Systems · LLMs agents</div>
+    </div>
+    <div class="sk">
+      <div class="sk-cat">Leadership</div>
+      <div class="sk-val">Technical Strategy · Team Scaling<br>Hiring · Mentoring · Road-mapping</div>
     </div>
   </div>
-  <script>
-    document.querySelector('#my-email').href = atob("bWFpbHRvOnNlYmFzdGllbi5kaWVtZXIrYmxvZ0BnbWFpbC5jb20=");
-    document.querySelector('#my-email').innerHTML = atob("c2ViYXN0aWVuLmRpZW1lckBnbWFpbC5jb20=");
-    document.querySelector('#my-phone').innerHTML = atob("KzMzIDYgMzUgMjggNDUgMTQ=");
-    document.querySelector('#my-phone').href = atob("dGVsOiszMzYzNTI4NDUxNA==");
-  </script>
-  <!--
-  <small class="copyright">
-    Largely inspired by <a href="http://themes.3rdwavemedia.com" target="_blank" rel="nofollow">Xiaoying Riley</a> for developers
-  </small>
-  -->
+
+  <div class="sb-sec">
+    <div class="sb-sec-title">Education</div>
+    <div class="edu">
+      <div class="edu-school">Ecole des Mines de Paris</div>
+      <div class="edu-detail">MEng · Applied Mathematics · 2006–2009</div>
+    </div>
+    <div class="edu">
+      <div class="edu-school">UC Berkeley</div>
+      <div class="edu-detail">Research Internship · Robotics · 2008</div>
+    </div>
+    <div class="edu">
+      <div class="edu-school">Lycée Hoche</div>
+      <div class="edu-detail">Classes Prépa MPSI / MP* · 2001–2006</div>
+    </div>
+  </div>
+
+  <div class="sb-sec">
+    <div class="sb-sec-title">Languages</div>
+    <div class="lang"><span class="lang-name">French</span><span class="lang-lvl">Native</span></div>
+    <div class="lang"><span class="lang-name">English</span><span class="lang-lvl">Full professional</span></div>
+    <div class="lang"><span class="lang-name">Spanish</span><span class="lang-lvl">Working</span></div>
+  </div>
+
+  <div class="sb-sec">
+    <div class="sb-sec-title">Publications</div>
+    <div class="pub"><a href="https://scholar.google.com/scholar?q=%22An+Invariant+Linear+Quadratic+Gaussian+controller+for+a+simplified+car%22+author%3ADiemer" target="_blank">Invariant LQG Controller for a Simplified Car Model</a></div>
+    <div class="pub"><a href="https://scholar.google.com/scholar?q=%22Network+of+Automated+Vehicles%3A+The+AutoNet2030+Vision%22+author%3ADiemer" target="_blank">Network of Automated Vehicles: The AutoNet2030 Vision</a></div>
+    <div class="pub"><a href="https://scholar.google.com/scholar?q=%22Combining+Mixed+Integer+Programming+and+Supervised+Learning+for+Fast+Re-planning%22+author%3ADiemer" target="_blank">Combining MIP &amp; Supervised Learning for Fast Re-planning</a></div>
+    <div class="pub"><a href="https://scholar.google.com/scholar?q=%22Viability-based+computation+of+spatially+constrained+minimum+time+trajectories+for+an+autonomous+underwater+vehicle%22+author%3ADiemer" target="_blank">Viability-based Min-Time Trajectories for Autonomous Underwater Vehicle</a></div>
+  </div>
+</aside>
+
+<main class="main">
+  <p class="summary">
+    Staff Engineer with <strong>15+ years</strong> building and scaling engineering systems from
+    safety-critical embedded software to data-driven SaaS platforms. Grew an engineering org from
+    <strong>4 to 30+</strong> across data science, data engineering, and web, while staying hands-on
+    with architecture and code quality. Deep roots in applied mathematics, optimization, and control
+    theory; equally fluent in code, system design, and cross-team technical leadership.
+  </p>
+
+  <div class="sec-title">Experience</div>
+
+  <div class="exp-list">
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-title">Staff Engineer</span>
+        <span class="exp-period">Dec 2023 – Present</span>
+      </div>
+      <div class="exp-co">Mytraffic <span class="loc">· Paris · Location analytics SaaS</span></div>
+      <ul class="bullets">
+        <li>Define and own engineering standards across data science, data engineering, and web</li>
+        <li>Lead architecture for the core data platform: ingestion pipelines, production ML systems, and external APIs</li>
+        <li>Technical force-multiplier: unblock teams, resolve cross-functional dependencies, mentor senior engineers</li>
+        <li>Shape the multi-year technical roadmap aligned with product and business strategy</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-title">CTO</span>
+        <span class="exp-period">Mar 2019 – Dec 2023</span>
+      </div>
+      <div class="exp-co">Mytraffic <span class="loc">· Paris · Location analytics SaaS</span></div>
+      <ul class="bullets">
+        <li>Scaled engineering from <strong>4 to 30+</strong>, including data scientists, data engineers, web developers; 20% contractors</li>
+        <li>Owned end-to-end delivery: production ML algorithms, <strong>1TB+</strong> daily data pipelines, web platform, cloud infra, and security</li>
+        <li>Built engineering culture from scratch: hiring, onboarding, career frameworks, and team processes</li>
+        <li>Drove platform reliability and scalability through a period of rapid company growth</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-title">Lead Development Engineer</span>
+        <span class="exp-period">Nov 2014 – Mar 2019</span>
+      </div>
+      <div class="exp-co">Polyconseil <span class="loc">· Paris · Electric car-sharing, Autolib' &amp; international</span></div>
+      <ul class="bullets">
+        <li>Lead full-stack engineer across rental workflows, financial modules, back-office ops, mobile APIs, and web (<strong>100K+ WAU</strong> and car rentals)</li>
+        <li>Translated operational requirements into software architecture; owned estimation, delivery, and code quality</li>
+        <li>Mentored junior developers and participated in hiring</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-title">Research Engineer · Autonomous Vehicles</span>
+        <span class="exp-period">Nov 2013 – Nov 2014</span>
+      </div>
+      <div class="exp-co">MINES ParisTech <span class="loc">· Paris</span></div>
+      <ul class="bullets">
+        <li>Developed fleet coordination algorithms guaranteeing passenger safety while minimising travel time and congestion; optimization, control theory, scientific Python</li>
+        <li>Published 4 peer-reviewed papers; supervised computer science labs at Mines ParisTech</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-title">Critical Systems Design Engineer</span>
+        <span class="exp-period">Dec 2009 – Nov 2013</span>
+      </div>
+      <div class="exp-co">AREVA NP <span class="loc">· Paris · EPR Nuclear Reactor, Finland</span></div>
+      <ul class="bullets">
+        <li>Designed safety-critical computerized protection systems for e.g. automatic shutdown triggers or valve &amp; pump control in a nuclear plant</li>
+        <li>Authored full system-requirements specifications (functions, separation, redundancy), software specs and reliablity analyses</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+</div>
+<script>
+  document.querySelector('#my-email').href = atob("bWFpbHRvOnNlYmFzdGllbi5kaWVtZXIrYmxvZ0BnbWFpbC5jb20=");
+  const icon = document.querySelector('#my-email svg').outerHTML;
+  document.querySelector('#my-email').innerHTML = icon + atob("c2ViYXN0aWVuLmRpZW1lckBnbWFpbC5jb20=");
+</script>
 </body>
 </html>
