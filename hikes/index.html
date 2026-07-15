@@ -574,7 +574,7 @@ async function showHike(hike, btn) {
 async function init() {
   const res = await fetch('hikes.json');
   const hikes = await res.json();
-  hikes.sort((a, b) => (b.start || '').localeCompare(a.start || ''));
+  hikes.sort((a, b) => (a.start || '9999').localeCompare(b.start || '9999'));
   const list = document.getElementById('hike-list');
   const links = [];
   hikes.forEach((h, i) => {
