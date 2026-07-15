@@ -22,5 +22,13 @@
     "start": "2025-08-08",
     "end": "2025-08-12",
     "file": "gpx/paimpol-dol-de-bretagne.gpx"
+  },
+  {
+    "name": "Carlit",
+    "type": "hike",
+    "place": "Massif du Carlit, Pyrénées",
+    "start": "2023-09-15",
+    "end": "2023-09-17",
+    "file": "gpx/carlit.gpx"
   }
 ]
