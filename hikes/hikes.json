@@ -1,0 +1,16 @@
+[
+  {
+    "name": "GRP Tour des Bauges",
+    "place": "Massif des Bauges, Savoie",
+    "start": "2026-07-10",
+    "end": "2026-07-14",
+    "file": "gpx/tour-des-bauges.gpx"
+  },
+  {
+    "name": "Tour des Aiguilles Rouges",
+    "place": "Chamonix, Haute-Savoie",
+    "start": "2024-07-19",
+    "end": "2024-07-21",
+    "file": "gpx/tour-des-aiguilles-rouges.gpx"
+  }
+]

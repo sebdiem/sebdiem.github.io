@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hikes – Sébastien Diemer</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --paper:     #f4f1e8;
+  --paper2:    #ece7d8;
+  --card:      #fbf9f3;
+  --edge:      #d8d2bf;
+  --ink:       #24291f;
+  --pine:      #33523e;
+  --pine-deep: #26382e;
+  --muted:     #71766a;
+  --trail:     #b02458;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Karla', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HIKE LIST ────────────────────────────────────── */
+.side {
+  width: 310px; flex-shrink: 0;
+  background: var(--paper2);
+  border-right: 1px solid var(--edge);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+.side-head {
+  padding: 26px 24px 18px;
+  border-bottom: 1px solid var(--edge);
+}
+
+.side-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 34px; font-weight: 700;
+  font-style: italic;
+  color: var(--pine);
+  letter-spacing: -.5px; line-height: 1;
+}
+
+.side-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.side-sub a { color: var(--pine); text-decoration: none; }
+.side-sub a:hover { text-decoration: underline; }
+
+.hike-list { list-style: none; overflow-y: auto; flex: 1; counter-reset: hike; }
+
+.hike {
+  width: 100%; text-align: left;
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; color: inherit;
+  padding: 14px 24px 14px 20px;
+  border-bottom: 1px solid var(--edge);
+  display: flex; gap: 12px; align-items: baseline;
+}
+.hike::before {
+  counter-increment: hike;
+  content: counter(hike, decimal-leading-zero);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  flex-shrink: 0;
+}
+.hike:hover { background: var(--card); }
+.hike[aria-current="true"] { background: var(--card); box-shadow: inset 3px 0 0 var(--trail); }
+.hike[aria-current="true"]::before { color: var(--trail); }
+
+.hike-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px; font-weight: 600;
+  line-height: 1.25; display: block;
+}
+.hike-meta {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: .5px;
+  color: var(--muted); margin-top: 4px;
+}
+
+/* per-day stages, revealed for the selected hike */
+.hike-days { display: none; margin-top: 10px; }
+.hike[aria-current="true"] .hike-days { display: block; }
+
+.day-group { margin: 0 -6px; padding: 0 6px; border-radius: 3px; }
+.day-group:hover { background: var(--paper2); }
+.day-group + .day-group { border-top: 1px dotted var(--edge); }
+
+.day-row {
+  display: grid;
+  grid-template-columns: 26px 62px 56px 56px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; line-height: 1.5;
+  color: var(--ink);
+  padding: 3px 0;
+}
+.day-n { color: var(--trail); font-weight: 500; }
+.day-to {
+  grid-column: 2 / -1;
+  color: var(--muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.side-note {
+  padding: 14px 24px 18px;
+  border-top: 1px solid var(--edge);
+  font-size: 11.5px; color: var(--muted); line-height: 1.6;
+}
+
+/* ── MAIN ─────────────────────────────────────────── */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+#map { flex: 1; min-height: 200px; background: var(--paper2); }
+
+.detail {
+  flex-shrink: 0;
+  background: var(--card);
+  border-top: 1px solid var(--edge);
+  padding: 16px 24px 18px;
+}
+
+.detail-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+
+.detail-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px; font-weight: 600;
+  letter-spacing: -.3px;
+}
+.detail-place {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; letter-spacing: .5px;
+  color: var(--pine);
+}
+
+.stats { display: flex; gap: 30px; flex-wrap: wrap; margin: 12px 0 4px; }
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+}
+.stat-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px; font-weight: 500;
+  margin-top: 2px;
+}
+.stat-value small { font-size: 11px; font-weight: 400; color: var(--muted); }
+
+/* elevation profile */
+.profile-wrap { position: relative; margin-top: 8px; }
+#profile { display: block; width: 100%; height: 100px; }
+.night-pin {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--card);
+  border: 2px solid var(--pine);
+  border-radius: 50%;
+  font-size: 13px; line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+
+.profile-tip {
+  position: absolute; pointer-events: none;
+  background: var(--pine-deep); color: var(--paper);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; line-height: 1.5;
+  padding: 5px 8px; border-radius: 3px;
+  transform: translate(-50%, -110%);
+  white-space: nowrap; display: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+
+@media (max-width: 720px) {
+  body { flex-direction: column; }
+  .side { width: 100%; max-height: 40vh; }
+  .stats { gap: 18px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="side">
+  <div class="side-head">
+    <div class="side-title">Hikes</div>
+    <div class="side-sub">A walking log · <a href="../">sebdiem</a></div>
+  </div>
+  <ul class="hike-list" id="hike-list"></ul>
+  <div class="side-note">Tracks recorded as GPX. Click a hike to draw it on the map; hover the profile to follow the trail.</div>
+</aside>
+
+<main class="main">
+  <div id="map"></div>
+  <section class="detail" id="detail" hidden>
+    <div class="detail-top">
+      <span class="detail-name" id="d-name"></span>
+      <span class="detail-place" id="d-place"></span>
+    </div>
+    <div class="stats">
+      <div><div class="stat-label">Distance</div><div class="stat-value" id="s-dist"></div></div>
+      <div><div class="stat-label">Ascent</div><div class="stat-value" id="s-up"></div></div>
+      <div><div class="stat-label">Descent</div><div class="stat-value" id="s-down"></div></div>
+      <div><div class="stat-label">Min&nbsp;alt.</div><div class="stat-value" id="s-min"></div></div>
+      <div><div class="stat-label">Max&nbsp;alt.</div><div class="stat-value" id="s-max"></div></div>
+    </div>
+    <div class="profile-wrap">
+      <svg id="profile" preserveAspectRatio="none"></svg>
+      <div class="profile-tip" id="profile-tip"></div>
+    </div>
+  </section>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const css = getComputedStyle(document.documentElement);
+const TRAIL = css.getPropertyValue('--trail').trim();
+const PAPER = css.getPropertyValue('--paper').trim();
+const EDGE  = css.getPropertyValue('--edge').trim();
+const MUTED = css.getPropertyValue('--muted').trim();
+const INK   = css.getPropertyValue('--ink').trim();
+
+const map = L.map('map', { zoomControl: true }).setView([45.9, 6.9], 9);
+L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+  maxZoom: 17,
+  attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM · © <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
+}).addTo(map);
+
+// dedicated panes keep day highlights above the route and the profile-hover dot above both
+map.createPane('highlight').style.zIndex = 440;
+map.createPane('hover').style.zIndex = 450;
+
+let trackLayer = null, hoverMarker = null, hlLine = null;
+let current = null, profileState = null;
+let loadSequence = 0;
+
+function haversine(a, b) {
+  const R = 6371000, toRad = x => x * Math.PI / 180;
+  const dLat = toRad(b.lat - a.lat), dLon = toRad(b.lon - a.lon);
+  const s = Math.sin(dLat/2)**2 +
+            Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon/2)**2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+function parseGpx(xmlText) {
+  const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+  if (doc.querySelector('parsererror')) throw new Error('Invalid GPX file');
+  const nodes = doc.getElementsByTagName('trkpt');
+  const pts = [];
+  for (const n of nodes) {
+    const ele = n.getElementsByTagName('ele')[0];
+    const elevation = ele ? parseFloat(ele.textContent) : null;
+    pts.push({
+      lat: parseFloat(n.getAttribute('lat')),
+      lon: parseFloat(n.getAttribute('lon')),
+      ele: Number.isFinite(elevation) ? elevation : null,
+    });
+  }
+  if (pts.length < 2) throw new Error('No track points found');
+  let dist = 0;
+  pts[0].d = 0;
+  for (let i = 1; i < pts.length; i++) {
+    dist += haversine(pts[i-1], pts[i]);
+    pts[i].d = dist;
+  }
+  const stops = [];
+  for (const n of doc.getElementsByTagName('wpt')) {
+    const tag = t => n.getElementsByTagName(t)[0]?.textContent || '';
+    if (tag('type') !== 'night') continue;
+    stops.push({ lat: parseFloat(n.getAttribute('lat')),
+                 lon: parseFloat(n.getAttribute('lon')),
+                 name: tag('name'), desc: tag('desc') });
+  }
+  return { pts, stops };
+}
+
+// ascent/descent with a 5 m hysteresis so GPS elevation noise doesn't inflate totals
+function elevationStats(pts) {
+  const eles = pts.map(p => p.ele).filter(e => e != null);
+  if (!eles.length) return null;
+  let up = 0, down = 0, ref = eles[0];
+  for (const e of eles) {
+    const delta = e - ref;
+    if (delta >= 5)  { up += delta;  ref = e; }
+    if (delta <= -5) { down -= delta; ref = e; }
+  }
+  return { up: Math.round(up), down: Math.round(down),
+           min: Math.round(Math.min(...eles)), max: Math.round(Math.max(...eles)) };
+}
+
+// split the track at the point nearest each night stop → per-day stats
+function computeStages(pts, stops) {
+  if (!stops.length) return [];
+  const idxs = stops.map(s => {
+    let best = 0, bd = Infinity;
+    pts.forEach((p, i) => { const d = haversine(p, s); if (d < bd) { bd = d; best = i; } });
+    return { name: s.name, i: best };
+  }).sort((a, b) => a.i - b.i);
+  const bounds = [0, ...idxs.map(s => s.i), pts.length - 1];
+  return bounds.slice(0, -1).map((b, k) => {
+    const seg = pts.slice(b, bounds[k + 1] + 1);
+    const es = elevationStats(seg);
+    return { i0: b, i1: bounds[k + 1],
+             km: (seg[seg.length - 1].d - seg[0].d) / 1000,
+             up: es?.up, down: es?.down,
+             to: k < idxs.length ? idxs[k].name : null };
+  });
+}
+
+function highlightDay(st) {
+  clearDayHighlight();
+  if (!current || !Number.isInteger(st.i0) || !Number.isInteger(st.i1)) return;
+
+  const i0 = Math.max(0, Math.min(st.i0, current.pts.length - 1));
+  const i1 = Math.max(i0, Math.min(st.i1, current.pts.length - 1));
+  const latlngs = current.pts.slice(i0, i1 + 1).map(p => [p.lat, p.lon]);
+  if (!latlngs.length) return;
+
+  current.casing.setStyle({ opacity: 0.25 });
+  current.line.setStyle({ opacity: 0.2 });
+  hlLine = L.polyline(latlngs, {
+    pane: 'highlight', color: TRAIL, weight: 5, opacity: 1, interactive: false,
+  }).addTo(map);
+  if (profileState) {
+    const p = profileState, d = p.makePaths(i0, i1);
+    p.hiLine.setAttribute('d', d.line);
+    p.hiArea.setAttribute('d', d.area);
+    p.line.setAttribute('opacity', 0.3);
+    p.area.setAttribute('fill-opacity', 0.04);
+  }
+}
+function clearDayHighlight() {
+  if (hlLine) {
+    if (map.hasLayer(hlLine)) map.removeLayer(hlLine);
+    hlLine = null;
+  }
+  if (current) {
+    current.casing.setStyle({ opacity: 0.9 });
+    current.line.setStyle({ opacity: 1 });
+  }
+  if (profileState) {
+    const p = profileState;
+    p.hiLine.setAttribute('d', '');
+    p.hiArea.setAttribute('d', '');
+    p.line.setAttribute('opacity', 1);
+    p.area.setAttribute('fill-opacity', 0.1);
+  }
+}
+
+function renderStages(btn, stages) {
+  if (!stages.length || btn.querySelector('.hike-days')) return;
+  const days = document.createElement('div');
+  days.className = 'hike-days';
+  for (const [k, st] of stages.entries()) {
+    const group = document.createElement('div');
+    group.className = 'day-group';
+    const row = document.createElement('div');
+    row.className = 'day-row';
+    row.innerHTML = `<span class="day-n"></span><span></span><span></span><span></span>`;
+    const c = row.children;
+    c[0].textContent = 'D' + (k + 1);
+    c[1].textContent = st.km.toFixed(1) + ' km';
+    c[2].textContent = st.up != null ? '+' + st.up : '';
+    c[3].textContent = st.down != null ? '−' + st.down : '';
+    group.appendChild(row);
+    if (st.to) {
+      const to = document.createElement('div');
+      to.className = 'day-row';
+      to.innerHTML = '<span></span><span class="day-to"></span>';
+      to.querySelector('.day-to').textContent = '↳ ' + st.to;
+      group.appendChild(to);
+    }
+    group.onmouseenter = () => highlightDay(st);
+    group.onmouseleave = clearDayHighlight;
+    days.appendChild(group);
+  }
+  btn.lastElementChild.appendChild(days);
+}
+
+// "12–18 July 2025", "28 June – 3 July 2025", or a single date
+function fmtDateRange(start, end) {
+  if (!start) return '';
+  const s = new Date(start), e = end ? new Date(end) : s;
+  const day = d => d.toLocaleDateString('en-GB', { day: 'numeric' });
+  const dayMonth = d => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+  const full = d => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  if (s.getTime() === e.getTime()) return full(s);
+  if (s.getFullYear() !== e.getFullYear()) return `${full(s)} – ${full(e)}`;
+  if (s.getMonth() !== e.getMonth()) return `${dayMonth(s)} – ${full(e)}`;
+  return `${day(s)}–${full(e)}`;
+}
+
+function drawProfile(pts) {
+  const svg = document.getElementById('profile');
+  const tip = document.getElementById('profile-tip');
+  const eles = pts.map(p => p.ele).filter(Number.isFinite);
+  const havEle = eles.length > 0;
+  profileState = null;
+  svg.onmousemove = null;
+  svg.onmouseleave = null;
+  svg.innerHTML = '';
+  tip.style.display = 'none';
+  if (hoverMarker) hoverMarker.setOpacity(0);
+  svg.parentElement.style.display = havEle ? '' : 'none';
+  if (!havEle) return;
+
+  const W = 1000, H = 100, PAD_T = 8, PAD_B = 14;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const totalD = Math.max(pts[pts.length-1].d, 1);
+  const lo = Math.min(...eles), hi = Math.max(...eles), span = Math.max(hi - lo, 1);
+  const X = d => d / totalD * W;
+  const Y = e => PAD_T + (1 - (e - lo) / span) * (H - PAD_T - PAD_B);
+
+  const makePaths = (i0, i1) => {
+    let line = '', area = `M${X(pts[i0].d).toFixed(1)},${H - PAD_B}`;
+    for (let i = i0; i <= i1; i++) {
+      const x = X(pts[i].d).toFixed(1), y = Y(pts[i].ele ?? lo).toFixed(1);
+      line += (i > i0 ? 'L' : 'M') + x + ',' + y;
+      area += 'L' + x + ',' + y;
+    }
+    area += `L${X(pts[i1].d).toFixed(1)},${H - PAD_B}Z`;
+    return { line, area };
+  };
+  const full = makePaths(0, pts.length - 1);
+
+  const el = (tag, attrs) => {
+    const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    svg.appendChild(e);
+    return e;
+  };
+  // recessive gridline at min/max elevation
+  for (const e of [lo, hi]) {
+    el('line', { x1: 0, x2: W, y1: Y(e), y2: Y(e), stroke: EDGE, 'stroke-width': 1 });
+    const t = el('text', { x: 4, y: Y(e) + (e === hi ? 11 : -4), fill: MUTED,
+                           'font-size': 10, 'font-family': 'IBM Plex Mono, monospace' });
+    t.textContent = Math.round(e) + ' m';
+  }
+  const areaEl = el('path', { d: full.area, fill: TRAIL, 'fill-opacity': 0.1 });
+  const lineEl = el('path', { d: full.line, fill: 'none', stroke: TRAIL, 'stroke-width': 2,
+                              'vector-effect': 'non-scaling-stroke' });
+  const hiArea = el('path', { d: '', fill: TRAIL, 'fill-opacity': 0.22 });
+  const hiLine = el('path', { d: '', fill: 'none', stroke: TRAIL, 'stroke-width': 3,
+                              'vector-effect': 'non-scaling-stroke' });
+  profileState = { makePaths, line: lineEl, area: areaEl, hiLine, hiArea };
+  const cursor = el('line', { x1: 0, x2: 0, y1: PAD_T, y2: H - PAD_B,
+                              stroke: INK, 'stroke-width': 1, opacity: 0 });
+  const dot = el('circle', { r: 4, fill: TRAIL, stroke: PAPER,
+                             'stroke-width': 2, opacity: 0 });
+
+  svg.onmousemove = ev => {
+    const rect = svg.getBoundingClientRect();
+    const frac = Math.min(Math.max((ev.clientX - rect.left) / rect.width, 0), 1);
+    const target = frac * totalD;
+    let i = pts.findIndex(p => p.d >= target);
+    if (i < 0) i = pts.length - 1;
+    const p = pts[i];
+    const x = X(p.d), y = Y(p.ele ?? lo);
+    cursor.setAttribute('x1', x); cursor.setAttribute('x2', x);
+    cursor.setAttribute('opacity', 0.4);
+    dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+    dot.setAttribute('opacity', 1);
+    tip.style.display = 'block';
+    tip.style.left = (x / W * rect.width) + 'px';
+    tip.style.top = (y / H * rect.height) + 'px';
+    const elevation = p.ele == null ? '–' : Math.round(p.ele);
+    tip.innerHTML = `${(p.d/1000).toFixed(1)} km · ${elevation} m`;
+    if (hoverMarker) hoverMarker.setLatLng([p.lat, p.lon]).setOpacity(1);
+  };
+  svg.onmouseleave = () => {
+    cursor.setAttribute('opacity', 0);
+    dot.setAttribute('opacity', 0);
+    tip.style.display = 'none';
+    if (hoverMarker) hoverMarker.setOpacity(0);
+  };
+}
+
+async function showHike(hike, btn) {
+  const sequence = ++loadSequence;
+  clearDayHighlight();
+  if (hoverMarker) hoverMarker.setOpacity(0);
+  document.querySelectorAll('.hike[aria-current]').forEach(b => b.removeAttribute('aria-current'));
+  btn.setAttribute('aria-current', 'true');
+
+  const res = await fetch(hike.file);
+  if (!res.ok) { alert(`Could not load ${hike.file}`); return; }
+  const { pts, stops } = parseGpx(await res.text());
+  if (sequence !== loadSequence) return;
+
+  if (trackLayer) map.removeLayer(trackLayer);
+  const latlngs = pts.map(p => [p.lat, p.lon]);
+  const casing = L.polyline(latlngs, { color: PAPER, weight: 6, opacity: 0.9 });
+  const line = L.polyline(latlngs, { color: TRAIL, weight: 3 });
+  trackLayer = L.layerGroup([
+    casing,
+    line,
+    L.circleMarker(latlngs[0], { radius: 6, color: PAPER, weight: 2,
+                                 fillColor: '#166534', fillOpacity: 1 }).bindTooltip('Start'),
+    L.circleMarker(latlngs[latlngs.length-1], { radius: 6, color: PAPER, weight: 2,
+                                 fillColor: INK, fillOpacity: 1 }).bindTooltip('End'),
+    ...stops.map(s =>
+      L.marker([s.lat, s.lon], { icon: L.divIcon({ className: 'night-pin', html: '⛺',
+                                 iconSize: [26, 26], iconAnchor: [13, 13] }) })
+        .bindTooltip([s.desc, s.name].filter(Boolean).join(' — '))),
+  ]).addTo(map);
+  current = { pts, casing, line };
+  if (!hoverMarker) {
+    hoverMarker = L.circleMarker(latlngs[0], { pane: 'hover', radius: 7, color: PAPER, weight: 2,
+                                 fillColor: TRAIL, fillOpacity: 1, opacity: 0 }).addTo(map);
+    hoverMarker.setOpacity = function(o) { this.setStyle({ opacity: o, fillOpacity: o }); return this; };
+    hoverMarker.setOpacity(0);
+  }
+  document.getElementById('detail').hidden = false;
+  document.getElementById('d-name').textContent = hike.name;
+  document.getElementById('d-place').textContent =
+    [hike.place, fmtDateRange(hike.start, hike.end)].filter(Boolean).join(' · ');
+
+  const dist = pts[pts.length-1].d;
+  document.getElementById('s-dist').innerHTML = (dist/1000).toFixed(1) + '<small> km</small>';
+  const es = elevationStats(pts);
+  document.getElementById('s-up').innerHTML   = es ? '+' + es.up  + '<small> m</small>' : '–';
+  document.getElementById('s-down').innerHTML = es ? '−' + es.down + '<small> m</small>' : '–';
+  document.getElementById('s-min').innerHTML  = es ? es.min + '<small> m</small>' : '–';
+  document.getElementById('s-max').innerHTML  = es ? es.max + '<small> m</small>' : '–';
+
+  drawProfile(pts);
+  renderStages(btn, computeStages(pts, stops));
+
+  // fit only after the detail panel is visible: showing it resizes the map,
+  // which would otherwise shift a bounds fit computed at the old size
+  map.invalidateSize();
+  map.fitBounds(L.latLngBounds(latlngs), { padding: [30, 30] });
+}
+
+async function init() {
+  const res = await fetch('hikes.json');
+  const hikes = await res.json();
+  hikes.sort((a, b) => (b.start || '').localeCompare(a.start || ''));
+  const list = document.getElementById('hike-list');
+  hikes.forEach((h, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.className = 'hike';
+    btn.innerHTML = `<span><span class="hike-name"></span><span class="hike-meta"></span></span>`;
+    btn.querySelector('.hike-name').textContent = h.name;
+    btn.querySelector('.hike-meta').textContent =
+      [fmtDateRange(h.start, h.end), h.place].filter(Boolean).join(' · ');
+    btn.onclick = () => showHike(h, btn);
+    li.appendChild(btn);
+    list.appendChild(li);
+    if (i === 0) showHike(h, btn);
+  });
+}
+init();
+</script>
+</body>
+</html>
