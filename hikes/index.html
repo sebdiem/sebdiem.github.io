@@ -65,7 +65,7 @@ body {
 .side-sub a { color: var(--pine); text-decoration: none; }
 .side-sub a:hover { text-decoration: underline; }
 
-.hike-list { list-style: none; overflow-y: auto; flex: 1; counter-reset: hike; }
+.hike-list { list-style: none; overflow-y: auto; flex: 1; }
 
 .hike {
   width: 100%; text-align: left;
@@ -76,8 +76,7 @@ body {
   display: flex; gap: 12px; align-items: baseline;
 }
 .hike::before {
-  counter-increment: hike;
-  content: counter(hike, decimal-leading-zero);
+  content: attr(data-number);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px; color: var(--muted);
   flex-shrink: 0;
@@ -574,31 +573,42 @@ async function showHike(hike, btn) {
 async function init() {
   const res = await fetch('hikes.json');
   const hikes = await res.json();
-  hikes.sort((a, b) => (a.start || '9999').localeCompare(b.start || '9999'));
+  const chronological = [...hikes]
+    .sort((a, b) => (a.start || '9999').localeCompare(b.start || '9999'));
+  const numbered = chronological.map((h, i) => ({ h, number: i + 1 }));
+  const displayed = [...numbered].sort((a, b) => {
+    if (!a.h.start) return b.h.start ? 1 : 0;
+    if (!b.h.start) return -1;
+    return b.h.start.localeCompare(a.h.start);
+  });
+  if (!displayed.length) return;
+
   const list = document.getElementById('hike-list');
-  const links = [];
-  hikes.forEach((h, i) => {
+  const links = new Map();
+  displayed.forEach(({ h, number }) => {
     const li = document.createElement('li');
     const link = document.createElement('a');
     link.className = 'hike';
-    link.href = '#' + (i + 1);
+    link.href = '#' + number;
+    link.dataset.number = String(number).padStart(2, '0');
     link.innerHTML = `<span><span class="hike-name"></span><span class="hike-meta"></span></span>`;
     setActivityTitle(link.querySelector('.hike-name'), h);
     link.querySelector('.hike-meta').textContent =
       [fmtType(h.type), fmtDateRange(h.start, h.end), h.place].filter(Boolean).join(' · ');
-    links.push(link);
+    links.set(number, link);
     li.appendChild(link);
     list.appendChild(li);
   });
 
   const selectFromHash = () => {
     const match = location.hash.match(/^#(\d+)$/);
-    const requested = match ? Number(match[1]) - 1 : 0;
-    const index = Number.isInteger(requested) && requested >= 0 && requested < hikes.length
-      ? requested : 0;
-    const canonicalHash = '#' + (index + 1);
+    const fallback = displayed[0].number;
+    const requested = match ? Number(match[1]) : fallback;
+    const number = Number.isInteger(requested) && requested >= 1 && requested <= chronological.length
+      ? requested : fallback;
+    const canonicalHash = '#' + number;
     if (location.hash !== canonicalHash) history.replaceState(null, '', canonicalHash);
-    showHike(hikes[index], links[index]);
+    showHike(chronological[number - 1], links.get(number));
   };
 
   window.addEventListener('hashchange', selectFromHash);
