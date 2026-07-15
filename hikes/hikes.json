@@ -1,6 +1,7 @@
 [
   {
     "name": "GRP Tour des Bauges",
+    "type": "hike",
     "place": "Massif des Bauges, Savoie",
     "start": "2026-07-10",
     "end": "2026-07-14",
@@ -8,9 +9,18 @@
   },
   {
     "name": "Tour des Aiguilles Rouges",
+    "type": "hike",
     "place": "Chamonix, Haute-Savoie",
     "start": "2024-07-19",
     "end": "2024-07-21",
     "file": "gpx/tour-des-aiguilles-rouges.gpx"
+  },
+  {
+    "name": "Paimpol – Dol-de-Bretagne",
+    "type": "bike",
+    "place": "Brittany, France",
+    "start": "2025-08-08",
+    "end": "2025-08-12",
+    "file": "gpx/paimpol-dol-de-bretagne.gpx"
   }
 ]

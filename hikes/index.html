@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hikes – Sébastien Diemer</title>
+<title>Hikes &amp; rides – Sébastien Diemer</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
@@ -70,7 +70,7 @@ body {
 .hike {
   width: 100%; text-align: left;
   background: none; border: none; cursor: pointer;
-  font-family: inherit; color: inherit;
+  font-family: inherit; color: inherit; text-decoration: none;
   padding: 14px 24px 14px 20px;
   border-bottom: 1px solid var(--edge);
   display: flex; gap: 12px; align-items: baseline;
@@ -91,6 +91,7 @@ body {
   font-size: 18px; font-weight: 600;
   line-height: 1.25; display: block;
 }
+.activity-icon { font-family: system-ui, sans-serif; font-style: normal; }
 .hike-meta {
   display: block;
   font-family: 'IBM Plex Mono', monospace;
@@ -199,11 +200,11 @@ body {
 
 <aside class="side">
   <div class="side-head">
-    <div class="side-title">Hikes</div>
-    <div class="side-sub">A walking log · <a href="../">sebdiem</a></div>
+    <div class="side-title">Hikes &amp; rides</div>
+    <div class="side-sub">An outdoor log · <a href="../">sebdiem</a></div>
   </div>
   <ul class="hike-list" id="hike-list"></ul>
-  <div class="side-note">Tracks recorded as GPX. Click a hike to draw it on the map; hover the profile to follow the trail.</div>
+  <div class="side-note">Tracks recorded as GPX. Pick an activity to draw it on the map; hover the profile to follow the route.</div>
 </aside>
 
 <main class="main">
@@ -305,14 +306,23 @@ function elevationStats(pts) {
            min: Math.round(Math.min(...eles)), max: Math.round(Math.max(...eles)) };
 }
 
-// split the track at the point nearest each night stop → per-day stats
+// split the track at each night stop in GPX order → per-day stats
 function computeStages(pts, stops) {
   if (!stops.length) return [];
-  const idxs = stops.map(s => {
-    let best = 0, bd = Infinity;
-    pts.forEach((p, i) => { const d = haversine(p, s); if (d < bd) { bd = d; best = i; } });
+  if (pts.length <= stops.length + 1) return [];
+  let previous = 0;
+  const idxs = stops.map((s, k) => {
+    let best = previous + 1, bd = Infinity;
+    // Keep boundaries strictly increasing and reserve one track point for
+    // every remaining night plus the final day.
+    const last = pts.length - (stops.length - k) - 1;
+    for (let i = previous + 1; i <= last; i++) {
+      const d = haversine(pts[i], s);
+      if (d < bd) { bd = d; best = i; }
+    }
+    previous = best;
     return { name: s.name, i: best };
-  }).sort((a, b) => a.i - b.i);
+  });
   const bounds = [0, ...idxs.map(s => s.i), pts.length - 1];
   return bounds.slice(0, -1).map((b, k) => {
     const seg = pts.slice(b, bounds[k + 1] + 1);
@@ -405,6 +415,18 @@ function fmtDateRange(start, end) {
   if (s.getFullYear() !== e.getFullYear()) return `${full(s)} – ${full(e)}`;
   if (s.getMonth() !== e.getMonth()) return `${dayMonth(s)} – ${full(e)}`;
   return `${day(s)}–${full(e)}`;
+}
+
+function fmtType(type) {
+  return type === 'bike' ? 'Bike' : 'Hike';
+}
+
+function setActivityTitle(el, activity) {
+  const icon = document.createElement('span');
+  icon.className = 'activity-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = activity.type === 'bike' ? '🚲' : '🥾';
+  el.replaceChildren(icon, document.createTextNode(' ' + activity.name));
 }
 
 function drawProfile(pts) {
@@ -528,9 +550,9 @@ async function showHike(hike, btn) {
     hoverMarker.setOpacity(0);
   }
   document.getElementById('detail').hidden = false;
-  document.getElementById('d-name').textContent = hike.name;
+  setActivityTitle(document.getElementById('d-name'), hike);
   document.getElementById('d-place').textContent =
-    [hike.place, fmtDateRange(hike.start, hike.end)].filter(Boolean).join(' · ');
+    [fmtType(hike.type), hike.place, fmtDateRange(hike.start, hike.end)].filter(Boolean).join(' · ');
 
   const dist = pts[pts.length-1].d;
   document.getElementById('s-dist').innerHTML = (dist/1000).toFixed(1) + '<small> km</small>';
@@ -554,19 +576,33 @@ async function init() {
   const hikes = await res.json();
   hikes.sort((a, b) => (b.start || '').localeCompare(a.start || ''));
   const list = document.getElementById('hike-list');
+  const links = [];
   hikes.forEach((h, i) => {
     const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.className = 'hike';
-    btn.innerHTML = `<span><span class="hike-name"></span><span class="hike-meta"></span></span>`;
-    btn.querySelector('.hike-name').textContent = h.name;
-    btn.querySelector('.hike-meta').textContent =
-      [fmtDateRange(h.start, h.end), h.place].filter(Boolean).join(' · ');
-    btn.onclick = () => showHike(h, btn);
-    li.appendChild(btn);
+    const link = document.createElement('a');
+    link.className = 'hike';
+    link.href = '#' + (i + 1);
+    link.innerHTML = `<span><span class="hike-name"></span><span class="hike-meta"></span></span>`;
+    setActivityTitle(link.querySelector('.hike-name'), h);
+    link.querySelector('.hike-meta').textContent =
+      [fmtType(h.type), fmtDateRange(h.start, h.end), h.place].filter(Boolean).join(' · ');
+    links.push(link);
+    li.appendChild(link);
     list.appendChild(li);
-    if (i === 0) showHike(h, btn);
   });
+
+  const selectFromHash = () => {
+    const match = location.hash.match(/^#(\d+)$/);
+    const requested = match ? Number(match[1]) - 1 : 0;
+    const index = Number.isInteger(requested) && requested >= 0 && requested < hikes.length
+      ? requested : 0;
+    const canonicalHash = '#' + (index + 1);
+    if (location.hash !== canonicalHash) history.replaceState(null, '', canonicalHash);
+    showHike(hikes[index], links[index]);
+  };
+
+  window.addEventListener('hashchange', selectFromHash);
+  selectFromHash();
 }
 init();
 </script>
